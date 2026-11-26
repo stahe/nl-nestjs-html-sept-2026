@@ -1,0 +1,997 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Stapsgewijze inleiding tot het webframework [NestJS]">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/nl-nestjs-html-sept-2026/inleiding.html">
+      
+      
+        <link rel="prev" href="index.html">
+      
+      
+        <link rel="next" href="controllers-acties-routing.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>1. Inleiding - Stapsgewijze inleiding tot het webframework [NestJS]</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Stapsgewijze inleiding tot het webframework [NestJS]";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-inleiding" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Stapsgewijze inleiding tot het webframework [NestJS]" class="md-header__button md-logo" aria-label="Stapsgewijze inleiding tot het webframework [NestJS]" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Stapsgewijze inleiding tot het webframework [NestJS]
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Inleiding
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Overschakelen naar donkere modus"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Overschakelen naar donkere modus" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Overschakelen naar lichte modus"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Overschakelen naar lichte modus" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://stahe.github.io/nl-nestjs-html-sept-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Stapsgewijze inleiding tot het webframework [NestJS]" class="md-nav__button md-logo" aria-label="Stapsgewijze inleiding tot het webframework [NestJS]" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Stapsgewijze inleiding tot het webframework [NestJS]
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://stahe.github.io/nl-nestjs-html-sept-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welkom
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inleiding
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="inleiding.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inleiding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11-de-rol-van-nestjs-in-een-webapplicatie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1. De rol van NestJS in een webapplicatie
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-gebruikte-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2. Gebruikte tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-voorbeelden" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3. Voorbeelden
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-inhoud-van-het-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4. Inhoud van het document
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="controllers-acties-routing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Controllers, acties, routing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="het-model-van-de-actie.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Het model van de actie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="de-view-en-het-bijbehorende-model.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. De view en het bijbehorende model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="internationalisering.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Internationalisering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gegevensscopes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gegevensscopes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="de-levenscyclus-van-een-verzoek.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. De levenscyclus van een verzoek
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="authenticatie-en-autorisatie.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Authenticatie en autorisatie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gelaagde-architectuur-en-gegevenstoegang.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Gelaagde architectuur en gegevenstoegang
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tussentijdse-conclusie.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Tussentijdse conclusie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="casus-de-applicatie-rdvmedecins.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Casus: de applicatie RdvMedecins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conclusie.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Conclusie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bijlagen.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Bijlagen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="1-inleiding">1. <span style="color: #2e74b5">Inleiding</span></h1>
+<p>De PDF van het document staat |<a href="https://1drv.ms/b/c/f53a919f43d27eb5/IQDGBajntusoSZ1n2o5iZY1tAaDe4sUHZDSu3KHpzXZHisE?e=WiuJeu">HIER</a>|.</p>
+<p>De code van het document staat |<a href="https://1drv.ms/u/c/f53a919f43d27eb5/IQAzgZ3lbE_mSIG-mPpQWkoEAWn4Jao8vLPi5J8CqOUF6jw?e=RUbiHZ">HIER</a>|.</p>
+<p>Dit document is een product van Claude, de AI van Anthropic. Het doel is om het document <a href="https://stahe.github.io/aspnetmvc-nov-2013/"><u><span style="color: #0563c1">*Inleiding tot ASP.NET MVC aan de hand van voorbeelden*</span></u></a> (2013) aan te passen aan het webframework <em>[NestJS]</em>:</p>
+<ul>
+<li>het framework <em>[ASP.NET MVC]</em> en de taal <em>[C#]</em> worden vervangen door het framework <em>[NestJS]</em> en de taal <em>[TypeScript]</em>;</li>
+<li>de <em>[Razor]</em>-views worden vervangen door <em>[Handlebars]</em>-views;</li>
+<li><em>[Entity Framework]</em> voor gegevenstoegang wordt vervangen door de ORM <em>[TypeORM]</em> en een <em>[MySQL]</em>-database.</li>
+</ul>
+<p>Het document volgt de structuur van de oorspronkelijke cursus: eerst veel kleine projecten, die elk op één concept zijn gericht, gevolgd <strong>door</strong> een uitgebreide <strong>casus</strong> — een webapplicatie voor het plannen van afspraken in een medische praktijk — waarvan alle bestanden volledig van commentaar zijn voorzien. Het hoofdstuk uit de oorspronkelijke cursus over de basis van webprogrammeren (het HTTP-protocol, de taal HTML) is niet opgenomen: deze basiskennis wordt als bekend verondersteld.</p>
+<h2 id="11-de-rol-van-nestjs-in-een-webapplicatie">1.1. <span style="color: #2e74b5">De rol van NestJS in een webapplicatie</span></h2>
+<p>Een webapplicatie wordt vaak opgebouwd uit <strong>lagen</strong>, waarbij elke laag alleen met de naburige lagen communiceert:</p>
+<p><img src="images/10000000000003D40000014A68ABE1F9.png" width="605" height="204" style="width:16cm;height:5.389cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000003D40000014A68ABE1F9.png" /></p>
+<ul>
+<li>de <strong>weblaag</strong> ontvangt HTTP-verzoeken van de browser en stuurt er HTML-pagina’s naar terug. <em>[NestJS]</em> helpt ons bij het schrijven van deze laag;</li>
+<li>de <strong>bedrijfslaag</strong> bevat de bedrijfsregels van de applicatie (bijvoorbeeld “een patiënt kan maar één toekomstige afspraak hebben”). Ze weet niets van het web: ze zou net zo goed een opdrachtregelapplicatie kunnen bedienen;</li>
+<li>de <strong>laag voor gegevenstoegang</strong> (de <em>[DAO]</em>-laag, van <em>[Data Access Object]</em>) leest uit en schrijft naar de database. We gebruiken de ORM <em>[TypeORM]</em> (<em>[Object Relational Mapper]</em>), die de rijen van de tabellen koppelt aan <em>[TypeScript]</em>-objecten.</li>
+</ul>
+<p>De weblaag zelf volgt het <em>[MVC]</em> (<em>[Model – View – Controller]</em>)-model:</p>
+<ul>
+<li>de <strong>controller</strong> (C) is een klasse waarvan de methoden, ook wel <strong>acties</strong> genoemd, elk een bepaald type verzoek afhandelen (bijvoorbeeld <strong><em>[GET /schedule]</em></strong>). Een actie leest de parameters van het verzoek, roept de bedrijfslaag aan en kiest vervolgens de view die moet worden weergegeven;</li>
+<li>het <strong>model</strong> (M) is de verzameling gegevens die de actie aan de view doorgeeft: een eenvoudig <em>[JavaScript]</em>-object;</li>
+<li>de <strong>view</strong> (V) is een <em>[Handlebars]</em>-bestand (extensie <strong><em>[.hbs]</em></strong>): een HTML-bestand waarin <strong><em>[{{...}}]</em></strong>-tags worden vervangen door gegevens uit het model.</li>
+</ul>
+<p>De verwerking van een verzoek volgt de genummerde stappen in het diagram:</p>
+<ul>
+<li>1: de browser stuurt een HTTP-verzoek, bijvoorbeeld <strong><em>[GET /schedule?doctorId=1&amp;day=2026-09-24]</em></strong>;</li>
+<li>2: <em>[NestJS]</em>, dat gebruikmaakt van de webserver <em>[Express]</em>, kiest de actie die dit verzoek moet afhandelen: dit is de <strong>routing</strong>. Voordat het verzoek daar aankomt, kan het langs <strong>middleware</strong>, <strong>guards</strong>, <strong>interceptors</strong> en <strong>pipes</strong> gaan, die we in de volgende hoofdstukken bespreken;</li>
+<li>3: de actie vraagt de gegevens die ze nodig heeft op bij de bedrijfslaag;</li>
+<li>4: ze bouwt het model voor de view en geeft aan welke view het moet weergeven;</li>
+<li>5: de view-engine <em>[Handlebars]</em> genereert de HTML-pagina, die <em>[NestJS]</em> naar de browser terugstuurt.</li>
+</ul>
+<p><em>[NestJS]</em> is een framework voor <em>[Node.js]</em>, geschreven in <em>[TypeScript]</em>. Het bouwt voort op de concepten van de frameworks <em>[Spring]</em> (<em>[Java]</em>) en <em>[Angular]</em> : <strong>decorators</strong> (<strong><em>[@Controller]</em></strong>, <strong><em>[@Get]</em></strong>, <strong><em>[@Injectable]</em></strong>...) beschrijven de rol van elke klasse, en <strong>dependency injection</strong> voorziet elk object van de afhankelijkheden die het nodig heeft. Het wordt vaak gebruikt om servers te schrijven die JSON teruggeven aan een <em>[JavaScript]</em>-client (<em>[Angular]</em>, <em>[React]</em>, <em>[Flutter]</em>...). Dit document gebruikt het om een <strong>klassieke</strong> webapplicatie te schrijven: de server genereert de HTML-pagina’s en de browser geeft ze alleen weer.</p>
+<h2 id="12-gebruikte-tools">1.2. <span style="color: #2e74b5">Gebruikte tools</span></h2>
+<p>De voorbeelden zijn geschreven en getest met de volgende tools (de installatie ervan wordt beschreven in de bijlage):</p>
+<ul>
+<li><em>[Node.js]</em> 20 en de bijbehorende pakketbeheerder <em>[npm]</em>;</li>
+<li>de editor <em>[Visual Studio Code]</em>;</li>
+<li>een recente browser (<em>[Chrome]</em>, <em>[Firefox]</em>, <em>[Edge]</em>);</li>
+<li>het opdrachtregelprogramma <em>[curl]</em>, dat onbewerkte HTTP-antwoorden toont (het is opgenomen in <em>[Windows]</em> 10 en 11);</li>
+<li>het DBMS <em>[MySQL]</em> (of <em>[MariaDB]</em>), bijvoorbeeld dat van <em>[Laragon]</em> onder <em>[Windows]</em>, vanaf het hoofdstuk over gegevenstoegang.</li>
+</ul>
+<p>De bibliotheekversies zijn die in het bestand <strong><em>[package.json]</em></strong> in de map met voorbeelden: <em>[NestJS]</em> 10, <em>[TypeScript]</em> 5, <em>[hbs]</em> 4 (<em>[Handlebars]</em>), <em>[class-validator]</em> 0.14, <em>[TypeORM]</em> 0.3, <em>[Bootstrap]</em> 5.</p>
+<h2 id="13-voorbeelden">1.3. <span style="color: #2e74b5">Voorbeelden</span></h2>
+<p>De voorbeelden staan in een map met de naam <strong><em>[examples]</em></strong>, met één submap per voorbeeld:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>examples/
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>├── 01-structure/
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>├── 02-routing/
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>├── ...
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>├── 28-layers/
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>├── node_modules/
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>├── package.json
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>└── package-lock.json
+</code></pre></div></td></tr></table></div>
+<p>Alle voorbeelden gebruiken dezelfde bibliotheken, die zijn gedeclareerd in <strong><em>[examples/package.json]</em></strong>. Ze worden <strong>eenmalig</strong> geïnstalleerd, in een console die is geopend in de map <strong><em>[examples]</em></strong>. Open in VSCode de map met voorbeelden:</p>
+<p><img src="images/1000000000000234000003F1E0650DC6.png" width="282" height="505" style="width:7.461cm;height:13.349cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/1000000000000234000003F1E0650DC6.png" /></p>
+<p>typ vervolgens in een in VSCode geïntegreerde terminal de opdracht</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npm install
+</code></pre></div>
+<p>Elk voorbeeld heeft dan de minimale structuur van een <em>[NestJS]</em>-project:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>13-first-view/
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>├── src/
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>│   ├── app.module.ts
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>│   ├── main.ts
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>│   └── views.controller.ts
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>├── views/
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>│   ├── index.hbs
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>│   └── unknown.hbs
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>├── nest-cli.json
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>└── tsconfig.json
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><strong><em>[src]</em></strong>: de <em>[TypeScript]</em>-code;</li>
+<li><strong><em>[views]</em></strong>: de views van <em>[Handlebars]</em> (vanaf Hoofdstuk 4);</li>
+<li><strong><em>[nest-cli.json]</em></strong>: de configuratie van het opdrachtregelprogramma van <em>[NestJS]</em>;</li>
+<li><strong><em>[tsconfig.json]</em></strong>: de configuratie van de <em>[TypeScript]</em>-compiler.</li>
+</ul>
+<p>Open om een voorbeeld uit te voeren een console in de map</p>
+<p><img src="images/10000000000003C20000031ABAB13B28.png" width="337" height="278" style="width:8.909cm;height:7.35cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000003C20000031ABAB13B28.png" /></p>
+<p>en typ:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>npx nest start
+</code></pre></div>
+<p><em>[npx]</em> zoekt het programma <strong><em>[nest]</em></strong> in de map <strong><em>[node_modules]</em></strong> van de bovenliggende map. <strong><em>[nest start]</em></strong> compileert de <em>[TypeScript]</em>-code naar de map <strong><em>[dist]</em></strong> en voert vervolgens <strong><em>[dist/main.js]</em></strong> uit. Met de optie <strong><em>[--watch]</em></strong> wordt de code opnieuw gecompileerd en de server opnieuw gestart zodra een <strong><em>[.ts]</em></strong>-bestand wordt gewijzigd:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>npx nest start --watch
+</code></pre></div>
+<p>Alle voorbeelden luisteren op poort 3000: er kan er dus maar één tegelijk draaien. Stop de server met <strong><em>[Ctrl-C]</em></strong> in de console.</p>
+<p>Het bestand <strong><em>[tsconfig.json]</em></strong> is voor alle voorbeelden hetzelfde:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">  </span><span class="nt">"compilerOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">    </span><span class="nt">"module"</span><span class="p">:</span><span class="w"> </span><span class="s2">"commonjs"</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">    </span><span class="nt">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ES2022"</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">    </span><span class="nt">"lib"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ES2022"</span><span class="p">],</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">    </span><span class="nt">"outDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./dist"</span><span class="p">,</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">    </span><span class="nt">"rootDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./src"</span><span class="p">,</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">    </span><span class="nt">"sourceMap"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">    </span><span class="nt">"emitDecoratorMetadata"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="w">    </span><span class="nt">"experimentalDecorators"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">    </span><span class="nt">"allowSyntheticDefaultImports"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">    </span><span class="nt">"strictNullChecks"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">    </span><span class="nt">"skipLibCheck"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="w">  </span><span class="nt">"include"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"src"</span><span class="p">]</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>We lichten dit bestand toe:</p>
+<ul>
+<li>regel 3: de gecompileerde code gebruikt de modules <em>[CommonJS]</em> van <em>[Node.js]</em> (<strong><em>[require]</em></strong>);</li>
+<li>regel 4: de gegenereerde code is recente <em>[JavaScript]</em> (ES2022), die wordt ondersteund door <em>[Node.js]</em> 20;</li>
+<li>regel 6–7: de broncode staat in <strong><em>[src]</em></strong> en de gecompileerde code in <strong><em>[dist]</em></strong>;</li>
+<li>regel 9–10: <strong>vereist</strong> voor <em>[NestJS]</em>. Decorators (<strong><em>[@Controller]</em></strong>...) zijn een functie van <em>[TypeScript]</em> die moet worden ingeschakeld, en <strong><em>[emitDecoratorMetadata]</em></strong> bewaart de <strong>typen</strong> van de parameters van constructors en methoden in de gecompileerde code: hierdoor weet <em>[NestJS]</em> welk object in een constructor moet worden geïnjecteerd;</li>
+<li>regel 12: de compiler meldt het gebruik van een waarde die mogelijk <strong><em>[null]</em></strong> of <strong><em>[undefined]</em></strong> is;</li>
+<li>regel 13: declaratiebestanden van bibliotheken worden niet gecontroleerd (snellere compilatie).</li>
+</ul>
+<p>Het bestand <strong><em>[nest-cli.json]</em></strong> is eveneens voor alle voorbeelden gelijk:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span>
+<span class="normal"><a href="#__codelineno-6-6">6</a></span>
+<span class="normal"><a href="#__codelineno-6-7">7</a></span>
+<span class="normal"><a href="#__codelineno-6-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">  </span><span class="nt">"$schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://json.schemastore.org/nest-cli"</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">  </span><span class="nt">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@nestjs/schematics"</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">  </span><span class="nt">"sourceRoot"</span><span class="p">:</span><span class="w"> </span><span class="s2">"src"</span><span class="p">,</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">  </span><span class="nt">"compilerOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">    </span><span class="nt">"deleteOutDir"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>regel 4: de broncode staat in <strong><em>[src]</em></strong>;</li>
+<li>regel 6: de map <strong><em>[dist]</em></strong> wordt vóór elke compilatie leeggemaakt (een bestand dat uit <strong><em>[src]</em></strong> is verwijderd, laat zo geen verouderde gecompileerde kopie achter).</li>
+</ul>
+<h2 id="14-inhoud-van-het-document">1.4. <span style="color: #2e74b5">Inhoud van het document</span></h2>
+<p>Het document is als volgt opgebouwd:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Hoofdstuk</b></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Inhoud</b></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Voorbeelden</b></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Controllers, acties,</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Van de browser naar de actie: routes, antwoorden, omleidingen, modules</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">01 tot en met 06</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Het model van de actie</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Parameters van het verzoek: conversie, validatie, POST-formulieren</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">07 tot en met 12</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">De view en het bijbehorende model</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Handlebars, templates, partiële views, helpers, formulieren, validatie, PRG</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">13 tot en met 21</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Internationalisering</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Een applicatie in het Frans en Engels</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">22</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Datascopes</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">applicatie, query, client</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">23</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">De levenscyclus van een verzoek</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">middleware, guard, interceptor, pipe, exception filter</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">24</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Authenticatie en autorisatie</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">JWT in een cookie, rollen, CAPTCHA, limieten op pogingen</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">25–27</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Gelaagde architectuur</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Web / bedrijfslaag / DAO met TypeORM en MySQL</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">28</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Casus</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">De applicatie RdvMedecins, bestand voor bestand toegelicht</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">-</div></td></tr></table>
+
+<p>Elk voorbeeld introduceert slechts enkele nieuwe concepten en de hoofdstukken bouwen op elkaar voort: u leest ze het best in volgorde. De casus daarentegen maakt gebruik van <strong>alle</strong> concepten uit de voorgaande hoofdstukken: waar relevant, verwijst het commentaar naar het voorbeeld waarin het concept is geïntroduceerd.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://stahe.github.io" target="_blank">
+          https://stahe.github.io
+        </a>
+        <br>
+        Deze tutorial, geschreven door de AI <strong>Claude</strong> van Anthropic en nagelezen door <strong>Serge Tahé</strong>, wordt aan het publiek ter beschikking gesteld onder de voorwaarden van de licentie
+        <em>Creative Commons Naamsvermelding – Niet-commercieel –
+        Gelijk delen 3.0 Unported</em>.
+
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1745 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Stapsgewijze inleiding tot het webframework [NestJS]">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/nl-nestjs-html-sept-2026/gelaagde-architectuur-en-gegevenstoegang.html">
+      
+      
+        <link rel="prev" href="authenticatie-en-autorisatie.html">
+      
+      
+        <link rel="next" href="tussentijdse-conclusie.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>9. Gelaagde architectuur en gegevenstoegang - Stapsgewijze inleiding tot het webframework [NestJS]</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Stapsgewijze inleiding tot het webframework [NestJS]";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#9-gelaagde-architectuur-en-gegevenstoegang" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Stapsgewijze inleiding tot het webframework [NestJS]" class="md-header__button md-logo" aria-label="Stapsgewijze inleiding tot het webframework [NestJS]" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Stapsgewijze inleiding tot het webframework [NestJS]
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              9. Gelaagde architectuur en gegevenstoegang
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Overschakelen naar donkere modus"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Overschakelen naar donkere modus" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Overschakelen naar lichte modus"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Overschakelen naar lichte modus" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://stahe.github.io/nl-nestjs-html-sept-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Stapsgewijze inleiding tot het webframework [NestJS]" class="md-nav__button md-logo" aria-label="Stapsgewijze inleiding tot het webframework [NestJS]" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Stapsgewijze inleiding tot het webframework [NestJS]
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://stahe.github.io/nl-nestjs-html-sept-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welkom
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="inleiding.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inleiding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="controllers-acties-routing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Controllers, acties, routing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="het-model-van-de-actie.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Het model van de actie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="de-view-en-het-bijbehorende-model.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. De view en het bijbehorende model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="internationalisering.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Internationalisering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gegevensscopes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gegevensscopes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="de-levenscyclus-van-een-verzoek.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. De levenscyclus van een verzoek
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="authenticatie-en-autorisatie.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Authenticatie en autorisatie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Gelaagde architectuur en gegevenstoegang
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="gelaagde-architectuur-en-gegevenstoegang.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Gelaagde architectuur en gegevenstoegang
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#91-voorbeeld-28-een-systeem-met-drie-lagen-voor-het-beheer-van-personen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1. Voorbeeld 28: een systeem met drie lagen voor het beheer van personen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.1. Voorbeeld 28: een systeem met drie lagen voor het beheer van personen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#911-de-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1.1. De database
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#912-de-configuratie-van-typeorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1.2. De configuratie van TypeORM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#913-de-entiteit-person" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1.3. De entiteit Person
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#914-de-dao-laag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1.4. De DAO-laag
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#915-de-bedrijfslaag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1.5. De bedrijfslaag
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#916-de-weblaag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1.6. De weblaag
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#917-uitvoering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1.7. Uitvoering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tussentijdse-conclusie.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Tussentijdse conclusie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="casus-de-applicatie-rdvmedecins.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Casus: de applicatie RdvMedecins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conclusie.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Conclusie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bijlagen.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Bijlagen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="9-gelaagde-architectuur-en-gegevenstoegang">9. <span style="color: #2e74b5">Gelaagde architectuur en gegevenstoegang</span></h1>
+<p>De vorige voorbeelden bewaarden hun gegevens in het geheugen. Een echte applicatie slaat ze op in een database en is georganiseerd in <strong>lagen</strong> (zie het diagram in de inleiding):</p>
+<ul>
+<li>de <strong>web</strong>laag (controllers, views): leest het verzoek, roept de bedrijfslaag aan en kiest de view;</li>
+<li>de <strong>bedrijfs</strong>laag: de bedrijfsregels;</li>
+<li>de <strong>DAO</strong>-laag: de databasequery&#x27;s.</li>
+</ul>
+<p>Elke laag kent alleen de laag eronder, en zo weinig mogelijk details daarvan: de weblaag kent de SQL-laag niet, en de bedrijfslaag kent de HTML-laag niet. Door deze scheiding is elke laag gemakkelijker te begrijpen, te testen en te laten evolueren. Voorbeeld 28 past dit toe op het beheer van een lijst met personen: het is, op kleinere schaal, het beheer van artsen en clients uit de casus.</p>
+<h2 id="91-voorbeeld-28-een-systeem-met-drie-lagen-voor-het-beheer-van-personen">9.1. <span style="color: #2e74b5">Voorbeeld 28: een systeem met drie lagen voor het beheer van personen</span></h2>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#__codelineno-0-32">32</a></span>
+<span class="normal"><a href="#__codelineno-0-33">33</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>28-layers/
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>├── database/
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>│   └── dbpersons.sql
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>├── public/
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>│   ├── css/
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>│   │   └── styles.css
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>│   └── js/
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>│       └── app.js
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>├── src/
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a>│   ├── business/
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a>│   │   ├── business.exception.ts
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a>│   │   └── persons.business.ts
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a>│   ├── config/
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a>│   │   └── database.config.ts
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a>│   ├── dao/
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a>│   │   └── persons.dao.ts
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a>│   ├── entities/
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a>│   │   └── person.entity.ts
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a>│   ├── web/
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a>│   │   ├── flash.ts
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a>│   │   ├── person-form.dto.ts
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a>│   │   ├── persons.controller.ts
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a>│   │   └── validation.ts
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a>│   ├── app.module.ts
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a>│   └── main.ts
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a>├── views/
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a>│   ├── partials/
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a>│   │   └── confirmation.hbs
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a>│   ├── form.hbs
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a>│   ├── layout.hbs
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a>│   └── list.hbs
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a>├── nest-cli.json
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a>└── tsconfig.json
+</code></pre></div></td></tr></table></div>
+<h3 id="911-de-database">9.1.1. <span style="color: #1f4d78">De database</span></h3>
+<p>De database <strong><em>[dbpersons]</em></strong> wordt aangemaakt met een SQL-script. Met <em>[Laragon]</em> kan het bijvoorbeeld worden uitgevoerd in de tool <em>[HeidiSQL]</em> (menu <strong>Bestand</strong> <strong>/ SQL-bestand uitvoeren</strong>), of vanaf de opdrachtregel:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>mysql -u root &lt; database/dbpersons.sql
+</code></pre></div></td></tr></table></div>
+<p>Het bestand <strong><em>[database/dbpersons.sql]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span>
+<span class="normal"><a href="#__codelineno-2-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1">-- database van voorbeeld 28: één tabel, [persons]</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">dbpersons</span><span class="p">;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">dbpersons</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="n">USE</span><span class="w"> </span><span class="n">dbpersons</span><span class="p">;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">persons</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">  </span><span class="k">version</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">  </span><span class="n">first_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">  </span><span class="n">last_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">  </span><span class="n">age</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">  </span><span class="c1">-- twee personen mogen niet dezelfde voor- en achternaam hebben</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">  </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">unq_persons_first_name_last_name</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">)</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InnoDB</span><span class="p">;</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a>
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">persons</span><span class="w"> </span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="w">  </span><span class="p">(</span><span class="s1">'Marie'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Pélissier'</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">),</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="w">  </span><span class="p">(</span><span class="s1">'Jacques'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Bromard'</span><span class="p">,</span><span class="w"> </span><span class="mi">35</span><span class="p">),</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="w">  </span><span class="p">(</span><span class="s1">'Philippe'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Jandot'</span><span class="p">,</span><span class="w"> </span><span class="mi">58</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Regel 3: de tekenset <strong><em>[utf8mb4]</em></strong> accepteert alle tekens (accenten, emoji&#x27;s enzovoort). De <strong>collatie</strong> <strong><em>[utf8mb4_unicode_ci]</em></strong> vergelijkt tekenreeksen <strong>zonder rekening te houden met hoofdletters of accenten</strong>: voor MySQL zijn <strong><em>[pelissier],</em></strong> en <strong><em>[Pélissier]</em></strong> gelijk;</li>
+<li>regel 8: een versienummer, dat elke keer wordt verhoogd als de rij wordt gewijzigd (zie „optimistische vergrendeling” hieronder);</li>
+<li>regel 14: een benoemde <strong>uniciteitsbeperking</strong>: de database staat niet toe dat twee personen dezelfde voor- en achternaam hebben. De naam wordt gebruikt om de fout te identificeren.</li>
+</ul>
+<h3 id="912-de-configuratie-van-typeorm">9.1.2. <span style="color: #1f4d78">De configuratie van TypeORM</span></h3>
+<p>Het bestand <strong><em>[src/config/database.config.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">TypeOrmModuleOptions</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/typeorm'</span><span class="p">;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Person</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'../entities/person.entity'</span><span class="p">;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="c1">// de databaseverbinding; de standaardwaarden zijn die van Laragon</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">databaseConfig</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">TypeOrmModuleOptions</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'mysql'</span><span class="p">,</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">    </span><span class="nx">host</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.DB_HOST</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s1">'localhost'</span><span class="p">,</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="w">    </span><span class="nx">port</span><span class="o">:</span><span class="w"> </span><span class="kt">Number</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">DB_PORT</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="mf">3306</span><span class="p">),</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="w">    </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.DB_USERNAME</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s1">'root'</span><span class="p">,</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="w">    </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.DB_PASSWORD</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s1">''</span><span class="p">,</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">    </span><span class="nx">database</span><span class="o">:</span><span class="w"> </span><span class="s1">'dbpersons'</span><span class="p">,</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">    </span><span class="nx">entities</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">Person</span><span class="p">],</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="w">    </span><span class="c1">// het schema wordt door het SQL-script aangemaakt en nooit door TypeORM gewijzigd</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="w">    </span><span class="nx">synchronize</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">,</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="w">    </span><span class="c1">// DB_LOGGING=true: toont de SQL-statements die naar de database worden verzonden</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="w">    </span><span class="nx">logging</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.DB_LOGGING</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">'true'</span><span class="p">,</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w">  </span><span class="p">};</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Regels 8–11: verbindingsparameters, gelezen uit omgevingsvariabelen, met de standaardwaarden van <em>[Laragon]</em> (gebruikersnaam <strong><em>[root]</em></strong>, geen wachtwoord);</li>
+<li>regel 13: de klassen die <em>[TypeORM]</em> aan tabellen koppelt;</li>
+<li>regel 15: <em>[TypeORM]</em> zou de tabellen zelf kunnen aanmaken of wijzigen op basis van de klassen. Dat is handig voor een prototype, maar gevaarlijk voor een database met gegevens: het schema blijft de verantwoordelijkheid van het SQL-script;</li>
+<li>regel 17: met de omgevingsvariabele <strong><em>[DB_LOGGING=true]</em></strong> worden de SQL-opdrachten die naar de database worden gestuurd in de console getoond.</li>
+</ul>
+<h3 id="913-de-entiteit-person">9.1.3. <span style="color: #1f4d78">De entiteit Person</span></h3>
+<p>Het bestand <strong><em>[src/entities/person.entity.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Column</span><span class="p">,</span><span class="w"> </span><span class="nx">Entity</span><span class="p">,</span><span class="w"> </span><span class="nx">PrimaryGeneratedColumn</span><span class="p">,</span><span class="w"> </span><span class="nx">VersionColumn</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'typeorm'</span><span class="p">;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="c1">// een rij van de tabel [persons] &lt;-&gt; een Person-object</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="kd">@Entity</span><span class="p">(</span><span class="s1">'persons'</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Person</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">  </span><span class="kd">@PrimaryGeneratedColumn</span><span class="p">()</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">  </span><span class="c1">// door TypeORM verhoogd bij elke wijziging (optimistische vergrendeling)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">  </span><span class="kd">@VersionColumn</span><span class="p">()</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">  </span><span class="nx">version</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="w">  </span><span class="kd">@Column</span><span class="p">({</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'first_name'</span><span class="p">,</span><span class="w"> </span><span class="nx">length</span><span class="o">:</span><span class="w"> </span><span class="kt">30</span><span class="w"> </span><span class="p">})</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="w">  </span><span class="nx">firstName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="w">  </span><span class="kd">@Column</span><span class="p">({</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'last_name'</span><span class="p">,</span><span class="w"> </span><span class="nx">length</span><span class="o">:</span><span class="w"> </span><span class="kt">30</span><span class="w"> </span><span class="p">})</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="w">  </span><span class="nx">lastName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a>
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="w">  </span><span class="kd">@Column</span><span class="p">()</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="w">  </span><span class="nx">age</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Regel 4: de klasse <strong><em>[Person]</em></strong> komt overeen met de tabel <strong><em>[persons]</em></strong>: elke rij van de tabel wordt een <strong><em>[Person]</em></strong>-object;</li>
+<li>regel 6: de primaire sleutel, gegenereerd door de database (<strong><em>[AUTO_INCREMENT]</em></strong>);</li>
+<li>Regel 10: de versiekolom, beheerd door <em>[TypeORM]</em>;</li>
+<li>regels 13–20: de overige kolommen.</li>
+</ul>
+<h3 id="914-de-dao-laag">9.1.4. <span style="color: #1f4d78">De DAO-laag</span></h3>
+<p>Het bestand <strong><em>[src/dao/persons.dao.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span>
+<span class="normal"><a href="#__codelineno-5-21">21</a></span>
+<span class="normal"><a href="#__codelineno-5-22">22</a></span>
+<span class="normal"><a href="#__codelineno-5-23">23</a></span>
+<span class="normal"><a href="#__codelineno-5-24">24</a></span>
+<span class="normal"><a href="#__codelineno-5-25">25</a></span>
+<span class="normal"><a href="#__codelineno-5-26">26</a></span>
+<span class="normal"><a href="#__codelineno-5-27">27</a></span>
+<span class="normal"><a href="#__codelineno-5-28">28</a></span>
+<span class="normal"><a href="#__codelineno-5-29">29</a></span>
+<span class="normal"><a href="#__codelineno-5-30">30</a></span>
+<span class="normal"><a href="#__codelineno-5-31">31</a></span>
+<span class="normal"><a href="#__codelineno-5-32">32</a></span>
+<span class="normal"><a href="#__codelineno-5-33">33</a></span>
+<span class="normal"><a href="#__codelineno-5-34">34</a></span>
+<span class="normal"><a href="#__codelineno-5-35">35</a></span>
+<span class="normal"><a href="#__codelineno-5-36">36</a></span>
+<span class="normal"><a href="#__codelineno-5-37">37</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Injectable</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">InjectRepository</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/typeorm'</span><span class="p">;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">EntityManager</span><span class="p">,</span><span class="w"> </span><span class="nx">Not</span><span class="p">,</span><span class="w"> </span><span class="nx">Repository</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'typeorm'</span><span class="p">;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Person</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'../entities/person.entity'</span><span class="p">;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="c1">// de laag voor GEGEVENSTOEGANG: queries, geen bedrijfsregels</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="kd">@Injectable</span><span class="p">()</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">PersonsDao</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="kd">@InjectRepository</span><span class="p">(</span><span class="nx">Person</span><span class="p">)</span><span class="w"> </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">repository</span><span class="o">:</span><span class="w"> </span><span class="kt">Repository</span><span class="o">&lt;</span><span class="nx">Person</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">  </span><span class="c1">// binnen een transactie moeten we via de "manager" van de transactie gaan</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">repo</span><span class="p">(</span><span class="nx">manager?</span><span class="o">:</span><span class="w"> </span><span class="kt">EntityManager</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">Repository</span><span class="o">&lt;</span><span class="nx">Person</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">manager</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">manager</span><span class="p">.</span><span class="nx">getRepository</span><span class="p">(</span><span class="nx">Person</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">repository</span><span class="p">;</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15"></a>
+<a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="w">  </span><span class="nx">list</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Person</span><span class="p">[]</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="w"> </span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">lastName</span><span class="o">:</span><span class="w"> </span><span class="s1">'ASC'</span><span class="p">,</span><span class="w"> </span><span class="nx">firstName</span><span class="o">:</span><span class="w"> </span><span class="s1">'ASC'</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19"></a>
+<a id="__codelineno-5-20" name="__codelineno-5-20"></a><span class="w">  </span><span class="nx">read</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="nx">manager?</span><span class="o">:</span><span class="w"> </span><span class="kt">EntityManager</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Person</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">repo</span><span class="p">(</span><span class="nx">manager</span><span class="p">).</span><span class="nx">findOneBy</span><span class="p">({</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23"></a>
+<a id="__codelineno-5-24" name="__codelineno-5-24"></a><span class="w">  </span><span class="c1">// een ANDERE persoon (id verschillend van [exceptId]) met deze voor- en achternaam</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25"></a><span class="w">  </span><span class="nx">namesake</span><span class="p">(</span><span class="nx">firstName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">lastName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">exceptId</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="nx">manager?</span><span class="o">:</span><span class="w"> </span><span class="kt">EntityManager</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Person</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">repo</span><span class="p">(</span><span class="nx">manager</span><span class="p">).</span><span class="nx">findOneBy</span><span class="p">({</span><span class="w"> </span><span class="nx">firstName</span><span class="p">,</span><span class="w"> </span><span class="nx">lastName</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">Not</span><span class="p">(</span><span class="nx">exceptId</span><span class="p">)</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-5-28" name="__codelineno-5-28"></a>
+<a id="__codelineno-5-29" name="__codelineno-5-29"></a><span class="w">  </span><span class="c1">// INSERT als de persoon geen id heeft, anders UPDATE</span>
+<a id="__codelineno-5-30" name="__codelineno-5-30"></a><span class="w">  </span><span class="nx">save</span><span class="p">(</span><span class="nx">person</span><span class="o">:</span><span class="w"> </span><span class="kt">Person</span><span class="p">,</span><span class="w"> </span><span class="nx">manager?</span><span class="o">:</span><span class="w"> </span><span class="kt">EntityManager</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Person</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-31" name="__codelineno-5-31"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">repo</span><span class="p">(</span><span class="nx">manager</span><span class="p">).</span><span class="nx">save</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
+<a id="__codelineno-5-32" name="__codelineno-5-32"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-5-33" name="__codelineno-5-33"></a>
+<a id="__codelineno-5-34" name="__codelineno-5-34"></a><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="ow">delete</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="nx">manager?</span><span class="o">:</span><span class="w"> </span><span class="kt">EntityManager</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-35" name="__codelineno-5-35"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">repo</span><span class="p">(</span><span class="nx">manager</span><span class="p">).</span><span class="ow">delete</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<a id="__codelineno-5-36" name="__codelineno-5-36"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-5-37" name="__codelineno-5-37"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>regel 9: <em>[TypeORM]</em> levert voor elke entiteit een <strong>repository</strong> (<strong><em>[Repository&lt;Person&gt;]</em></strong>) die de tabel kan lezen en beschrijven. <strong><em>[@InjectRepository]</em></strong> injecteert die;</li>
+<li>regels 12–14: binnen een <strong>transactie</strong> moeten alle query&#x27;s via hetzelfde <strong><em>[EntityManager]</em></strong>-object lopen, het object dat bij de transactie hoort. Elke methode accepteert daarom een optionele <strong><em>[manager]</em></strong>;</li>
+<li>regels 16–18: <strong><em>[find]</em></strong> met een sortering: <strong><em>[SELECT ... ORDER BY last_name, first_name]</em></strong>;</li>
+<li>regels 25–27: een persoon met dezelfde voor- en achternaam, <strong>anders</strong> dan <strong><em>[exceptId]</em></strong> (<strong><em>[Not]</em></strong>): nuttig bij het wijzigen van een record, dat niet met zichzelf in conflict mag komen;</li>
+<li>regels 30–32: <strong><em>[save]</em></strong> wordt <strong><em>[INSERT]</em></strong> als het object geen id heeft, en anders <strong><em>[UPDATE]</em></strong>.</li>
+</ul>
+<p>De DAO-laag bevat geen regels: alleen queries.</p>
+<h3 id="915-de-bedrijfslaag">9.1.5. <span style="color: #1f4d78">De bedrijfslaag</span></h3>
+<p>Het bestand <strong><em>[src/business/business.exception.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c1">// een bedrijfsregel weigert de bewerking: dit is geen afwijking,</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="c1">// de melding is bestemd voor de gebruiker</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">BusinessException</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="ne">Error</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div></td></tr></table></div>
+<p>Een <strong><em>[BusinessException]</em></strong> geeft aan dat een bedrijfsregel een bewerking heeft afgewezen. Dit is geen programmeerfout: de melding is bedoeld voor de gebruiker.</p>
+<p>Het bestand <strong><em>[src/business/persons.business.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span>
+<span class="normal"><a href="#__codelineno-7-16">16</a></span>
+<span class="normal"><a href="#__codelineno-7-17">17</a></span>
+<span class="normal"><a href="#__codelineno-7-18">18</a></span>
+<span class="normal"><a href="#__codelineno-7-19">19</a></span>
+<span class="normal"><a href="#__codelineno-7-20">20</a></span>
+<span class="normal"><a href="#__codelineno-7-21">21</a></span>
+<span class="normal"><a href="#__codelineno-7-22">22</a></span>
+<span class="normal"><a href="#__codelineno-7-23">23</a></span>
+<span class="normal"><a href="#__codelineno-7-24">24</a></span>
+<span class="normal"><a href="#__codelineno-7-25">25</a></span>
+<span class="normal"><a href="#__codelineno-7-26">26</a></span>
+<span class="normal"><a href="#__codelineno-7-27">27</a></span>
+<span class="normal"><a href="#__codelineno-7-28">28</a></span>
+<span class="normal"><a href="#__codelineno-7-29">29</a></span>
+<span class="normal"><a href="#__codelineno-7-30">30</a></span>
+<span class="normal"><a href="#__codelineno-7-31">31</a></span>
+<span class="normal"><a href="#__codelineno-7-32">32</a></span>
+<span class="normal"><a href="#__codelineno-7-33">33</a></span>
+<span class="normal"><a href="#__codelineno-7-34">34</a></span>
+<span class="normal"><a href="#__codelineno-7-35">35</a></span>
+<span class="normal"><a href="#__codelineno-7-36">36</a></span>
+<span class="normal"><a href="#__codelineno-7-37">37</a></span>
+<span class="normal"><a href="#__codelineno-7-38">38</a></span>
+<span class="normal"><a href="#__codelineno-7-39">39</a></span>
+<span class="normal"><a href="#__codelineno-7-40">40</a></span>
+<span class="normal"><a href="#__codelineno-7-41">41</a></span>
+<span class="normal"><a href="#__codelineno-7-42">42</a></span>
+<span class="normal"><a href="#__codelineno-7-43">43</a></span>
+<span class="normal"><a href="#__codelineno-7-44">44</a></span>
+<span class="normal"><a href="#__codelineno-7-45">45</a></span>
+<span class="normal"><a href="#__codelineno-7-46">46</a></span>
+<span class="normal"><a href="#__codelineno-7-47">47</a></span>
+<span class="normal"><a href="#__codelineno-7-48">48</a></span>
+<span class="normal"><a href="#__codelineno-7-49">49</a></span>
+<span class="normal"><a href="#__codelineno-7-50">50</a></span>
+<span class="normal"><a href="#__codelineno-7-51">51</a></span>
+<span class="normal"><a href="#__codelineno-7-52">52</a></span>
+<span class="normal"><a href="#__codelineno-7-53">53</a></span>
+<span class="normal"><a href="#__codelineno-7-54">54</a></span>
+<span class="normal"><a href="#__codelineno-7-55">55</a></span>
+<span class="normal"><a href="#__codelineno-7-56">56</a></span>
+<span class="normal"><a href="#__codelineno-7-57">57</a></span>
+<span class="normal"><a href="#__codelineno-7-58">58</a></span>
+<span class="normal"><a href="#__codelineno-7-59">59</a></span>
+<span class="normal"><a href="#__codelineno-7-60">60</a></span>
+<span class="normal"><a href="#__codelineno-7-61">61</a></span>
+<span class="normal"><a href="#__codelineno-7-62">62</a></span>
+<span class="normal"><a href="#__codelineno-7-63">63</a></span>
+<span class="normal"><a href="#__codelineno-7-64">64</a></span>
+<span class="normal"><a href="#__codelineno-7-65">65</a></span>
+<span class="normal"><a href="#__codelineno-7-66">66</a></span>
+<span class="normal"><a href="#__codelineno-7-67">67</a></span>
+<span class="normal"><a href="#__codelineno-7-68">68</a></span>
+<span class="normal"><a href="#__codelineno-7-69">69</a></span>
+<span class="normal"><a href="#__codelineno-7-70">70</a></span>
+<span class="normal"><a href="#__codelineno-7-71">71</a></span>
+<span class="normal"><a href="#__codelineno-7-72">72</a></span>
+<span class="normal"><a href="#__codelineno-7-73">73</a></span>
+<span class="normal"><a href="#__codelineno-7-74">74</a></span>
+<span class="normal"><a href="#__codelineno-7-75">75</a></span>
+<span class="normal"><a href="#__codelineno-7-76">76</a></span>
+<span class="normal"><a href="#__codelineno-7-77">77</a></span>
+<span class="normal"><a href="#__codelineno-7-78">78</a></span>
+<span class="normal"><a href="#__codelineno-7-79">79</a></span>
+<span class="normal"><a href="#__codelineno-7-80">80</a></span>
+<span class="normal"><a href="#__codelineno-7-81">81</a></span>
+<span class="normal"><a href="#__codelineno-7-82">82</a></span>
+<span class="normal"><a href="#__codelineno-7-83">83</a></span>
+<span class="normal"><a href="#__codelineno-7-84">84</a></span>
+<span class="normal"><a href="#__codelineno-7-85">85</a></span>
+<span class="normal"><a href="#__codelineno-7-86">86</a></span>
+<span class="normal"><a href="#__codelineno-7-87">87</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Injectable</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">DataSource</span><span class="p">,</span><span class="w"> </span><span class="nx">EntityManager</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'typeorm'</span><span class="p">;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">PersonsDao</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'../dao/persons.dao'</span><span class="p">;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Person</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'../entities/person.entity'</span><span class="p">;</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">BusinessException</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./business.exception'</span><span class="p">;</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">PersonData</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="w">  </span><span class="nx">firstName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="w">  </span><span class="nx">lastName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">  </span><span class="nx">age</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="p">}</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="c1">// de BEDRIJFSLAAG: de bedrijfsregels, en alleen die</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="kd">@Injectable</span><span class="p">()</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">PersonsBusiness</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="w">  </span><span class="kr">constructor</span><span class="p">(</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">dao</span><span class="o">:</span><span class="w"> </span><span class="kt">PersonsDao</span><span class="p">,</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18"></a><span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">dataSource</span><span class="o">:</span><span class="w"> </span><span class="kt">DataSource</span><span class="p">,</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19"></a><span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20"></a>
+<a id="__codelineno-7-21" name="__codelineno-7-21"></a><span class="w">  </span><span class="nx">list</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Person</span><span class="p">[]</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">dao</span><span class="p">.</span><span class="nx">list</span><span class="p">();</span>
+<a id="__codelineno-7-23" name="__codelineno-7-23"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-7-24" name="__codelineno-7-24"></a>
+<a id="__codelineno-7-25" name="__codelineno-7-25"></a><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">read</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Person</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-26" name="__codelineno-7-26"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">dao</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<a id="__codelineno-7-27" name="__codelineno-7-27"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">person</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-28" name="__codelineno-7-28"></a><span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">BusinessException</span><span class="p">(</span><span class="s1">'This person does not exist (anymore).'</span><span class="p">);</span>
+<a id="__codelineno-7-29" name="__codelineno-7-29"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-30" name="__codelineno-7-30"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">person</span><span class="p">;</span>
+<a id="__codelineno-7-31" name="__codelineno-7-31"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-7-32" name="__codelineno-7-32"></a>
+<a id="__codelineno-7-33" name="__codelineno-7-33"></a><span class="w">  </span><span class="nx">add</span><span class="p">(</span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kt">PersonData</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Person</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-34" name="__codelineno-7-34"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">manager</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-35" name="__codelineno-7-35"></a><span class="w">      </span><span class="c1">// regel 1: geen twee personen met dezelfde voor- en achternaam</span>
+<a id="__codelineno-7-36" name="__codelineno-7-36"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">dao</span><span class="p">.</span><span class="nx">namesake</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">firstName</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">lastName</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">manager</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-37" name="__codelineno-7-37"></a><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">BusinessException</span><span class="p">(</span><span class="s1">'A person already has these first and last names.'</span><span class="p">);</span>
+<a id="__codelineno-7-38" name="__codelineno-7-38"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-7-39" name="__codelineno-7-39"></a><span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Person</span><span class="p">();</span>
+<a id="__codelineno-7-40" name="__codelineno-7-40"></a><span class="w">      </span><span class="nx">person</span><span class="p">.</span><span class="nx">firstName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">firstName</span><span class="p">;</span>
+<a id="__codelineno-7-41" name="__codelineno-7-41"></a><span class="w">      </span><span class="nx">person</span><span class="p">.</span><span class="nx">lastName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">lastName</span><span class="p">;</span>
+<a id="__codelineno-7-42" name="__codelineno-7-42"></a><span class="w">      </span><span class="nx">person</span><span class="p">.</span><span class="nx">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">age</span><span class="p">;</span>
+<a id="__codelineno-7-43" name="__codelineno-7-43"></a><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">dao</span><span class="p">.</span><span class="nx">save</span><span class="p">(</span><span class="nx">person</span><span class="p">,</span><span class="w"> </span><span class="nx">manager</span><span class="p">);</span>
+<a id="__codelineno-7-44" name="__codelineno-7-44"></a><span class="w">    </span><span class="p">});</span>
+<a id="__codelineno-7-45" name="__codelineno-7-45"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-7-46" name="__codelineno-7-46"></a>
+<a id="__codelineno-7-47" name="__codelineno-7-47"></a><span class="w">  </span><span class="nx">edit</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="nx">version</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kt">PersonData</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Person</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-48" name="__codelineno-7-48"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">manager</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-49" name="__codelineno-7-49"></a><span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">dao</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">manager</span><span class="p">);</span>
+<a id="__codelineno-7-50" name="__codelineno-7-50"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">person</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-51" name="__codelineno-7-51"></a><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">BusinessException</span><span class="p">(</span><span class="s1">'This person does not exist (anymore).'</span><span class="p">);</span>
+<a id="__codelineno-7-52" name="__codelineno-7-52"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-7-53" name="__codelineno-7-53"></a><span class="w">      </span><span class="c1">// regel 2: een record dat intussen door iemand anders is gewijzigd, wijzigen we niet</span>
+<a id="__codelineno-7-54" name="__codelineno-7-54"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">version</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="nx">version</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-55" name="__codelineno-7-55"></a><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">BusinessException</span><span class="p">(</span><span class="s1">'This record has been modified meanwhile: reload it.'</span><span class="p">);</span>
+<a id="__codelineno-7-56" name="__codelineno-7-56"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-7-57" name="__codelineno-7-57"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">dao</span><span class="p">.</span><span class="nx">namesake</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">firstName</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">lastName</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">manager</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-58" name="__codelineno-7-58"></a><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">BusinessException</span><span class="p">(</span><span class="s1">'A person already has these first and last names.'</span><span class="p">);</span>
+<a id="__codelineno-7-59" name="__codelineno-7-59"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-7-60" name="__codelineno-7-60"></a><span class="w">      </span><span class="nx">person</span><span class="p">.</span><span class="nx">firstName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">firstName</span><span class="p">;</span>
+<a id="__codelineno-7-61" name="__codelineno-7-61"></a><span class="w">      </span><span class="nx">person</span><span class="p">.</span><span class="nx">lastName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">lastName</span><span class="p">;</span>
+<a id="__codelineno-7-62" name="__codelineno-7-62"></a><span class="w">      </span><span class="nx">person</span><span class="p">.</span><span class="nx">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">age</span><span class="p">;</span>
+<a id="__codelineno-7-63" name="__codelineno-7-63"></a><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">dao</span><span class="p">.</span><span class="nx">save</span><span class="p">(</span><span class="nx">person</span><span class="p">,</span><span class="w"> </span><span class="nx">manager</span><span class="p">);</span>
+<a id="__codelineno-7-64" name="__codelineno-7-64"></a><span class="w">    </span><span class="p">});</span>
+<a id="__codelineno-7-65" name="__codelineno-7-65"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-7-66" name="__codelineno-7-66"></a>
+<a id="__codelineno-7-67" name="__codelineno-7-67"></a><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="ow">delete</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Person</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-68" name="__codelineno-7-68"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<a id="__codelineno-7-69" name="__codelineno-7-69"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">dao</span><span class="p">.</span><span class="ow">delete</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<a id="__codelineno-7-70" name="__codelineno-7-70"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">person</span><span class="p">;</span>
+<a id="__codelineno-7-71" name="__codelineno-7-71"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-7-72" name="__codelineno-7-72"></a>
+<a id="__codelineno-7-73" name="__codelineno-7-73"></a><span class="w">  </span><span class="c1">// [work] draait binnen een transactie: COMMIT bij succes, ROLLBACK</span>
+<a id="__codelineno-7-74" name="__codelineno-7-74"></a><span class="w">  </span><span class="c1">// als er een exception wordt gegooid. Een schending van de uniekheidsbeperking (twee</span>
+<a id="__codelineno-7-75" name="__codelineno-7-75"></a><span class="w">  </span><span class="c1">// gelijktijdige toevoegingen, bijvoorbeeld) wordt een BusinessException</span>
+<a id="__codelineno-7-76" name="__codelineno-7-76"></a><span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="nx">transaction</span><span class="o">&lt;</span><span class="nx">R</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">work</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">manager</span><span class="o">:</span><span class="w"> </span><span class="kt">EntityManager</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">R</span><span class="o">&gt;</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">R</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-77" name="__codelineno-7-77"></a><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-78" name="__codelineno-7-78"></a><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">dataSource</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="nx">work</span><span class="p">);</span>
+<a id="__codelineno-7-79" name="__codelineno-7-79"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-80" name="__codelineno-7-80"></a><span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">sqlError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">code?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="nx">message?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-7-81" name="__codelineno-7-81"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">sqlError</span><span class="p">.</span><span class="nx">code</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">'ER_DUP_ENTRY'</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">sqlError</span><span class="p">.</span><span class="nx">message</span><span class="o">?</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">'unq_persons_first_name_last_name'</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-82" name="__codelineno-7-82"></a><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">BusinessException</span><span class="p">(</span><span class="s1">'A person already has these first and last names.'</span><span class="p">);</span>
+<a id="__codelineno-7-83" name="__codelineno-7-83"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-7-84" name="__codelineno-7-84"></a><span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="nx">e</span><span class="p">;</span>
+<a id="__codelineno-7-85" name="__codelineno-7-85"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-86" name="__codelineno-7-86"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-7-87" name="__codelineno-7-87"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>We lichten deze code stap voor stap toe:</p>
+<ul>
+<li>regels 16–19: de bedrijfslaag gebruikt de DAO en <strong><em>[DataSource]</em></strong> van <em>[TypeORM]</em> (de databaseverbinding) om transacties te openen;</li>
+<li>regels 25–31: een persoon die niet bestaat, is een <strong><em>[BusinessException]</em></strong>;</li>
+<li>regels 33–45: een persoon toevoegen binnen een transactie. Regel: er mogen geen twee personen dezelfde voor- en achternaam hebben. Dit wordt gecontroleerd <strong>vóór</strong> de schrijfbewerking, om een duidelijke melding te kunnen tonen;</li>
+<li>regels 47–65: wijziging. Extra regel: de <strong>optimistische vergrendeling</strong> (regels 54–56): het wijzigingsformulier bevat de versie van het record zoals die was toen het formulier werd geopend. Als die intussen is veranderd (een andere gebruiker heeft hetzelfde record gewijzigd), wordt de bewerking geweigerd in plaats van het werk van de gebruiker stilzwijgend te overschrijven;</li>
+<li>regels 76–86: <strong><em>[dataSource.transaction(work)]</em></strong> opent een transactie, voert [work] uit en bevestigt de transactie dan (<strong><em>[COMMIT]</em></strong>) of draait die terug (<strong><em>[ROLLBACK]</em></strong>) als [work] een exception genereert. Regels 81–82: de voorafgaande controle op namesakes is niet altijd voldoende: twee gebruikers kunnen tegelijk dezelfde persoon toevoegen, en beide kunnen de controle doorstaan. De uniciteitsbeperking van de database laat echter geen uitzonderingen toe; de MySQL-fout <strong><em>[ER_DUP_ENTRY]</em></strong>, geïdentificeerd aan de hand van de beperking, wordt dan dezelfde <strong><em>[BusinessException]</em></strong>.</li>
+</ul>
+<h3 id="916-de-weblaag">9.1.6. <span style="color: #1f4d78">De weblaag</span></h3>
+<p>Het bestand <strong><em>[src/web/person-form.dto.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span>
+<span class="normal"><a href="#__codelineno-8-17">17</a></span>
+<span class="normal"><a href="#__codelineno-8-18">18</a></span>
+<span class="normal"><a href="#__codelineno-8-19">19</a></span>
+<span class="normal"><a href="#__codelineno-8-20">20</a></span>
+<span class="normal"><a href="#__codelineno-8-21">21</a></span>
+<span class="normal"><a href="#__codelineno-8-22">22</a></span>
+<span class="normal"><a href="#__codelineno-8-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Transform</span><span class="p">,</span><span class="w"> </span><span class="nx">Type</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'class-transformer'</span><span class="p">;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">IsInt</span><span class="p">,</span><span class="w"> </span><span class="nx">IsNotEmpty</span><span class="p">,</span><span class="w"> </span><span class="nx">Max</span><span class="p">,</span><span class="w"> </span><span class="nx">MaxLength</span><span class="p">,</span><span class="w"> </span><span class="nx">Min</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'class-validator'</span><span class="p">;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="kd">const</span><span class="w"> </span><span class="nx">clean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">}</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">'string'</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">value</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">value</span><span class="p">);</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="c1">// de velden van het formulier en hun beperkingen (lengtes = SQL-kolommen)</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">PersonFormDto</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">  </span><span class="kd">@Transform</span><span class="p">(</span><span class="nx">clean</span><span class="p">)</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">  </span><span class="kd">@IsNotEmpty</span><span class="p">({</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">'The first name is required.'</span><span class="w"> </span><span class="p">})</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="w">  </span><span class="kd">@MaxLength</span><span class="p">(</span><span class="mf">30</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">'The first name must not exceed 30 characters.'</span><span class="w"> </span><span class="p">})</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="w">  </span><span class="nx">firstName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="w">  </span><span class="kd">@Transform</span><span class="p">(</span><span class="nx">clean</span><span class="p">)</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a><span class="w">  </span><span class="kd">@IsNotEmpty</span><span class="p">({</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">'The last name is required.'</span><span class="w"> </span><span class="p">})</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15"></a><span class="w">  </span><span class="kd">@MaxLength</span><span class="p">(</span><span class="mf">30</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">'The last name must not exceed 30 characters.'</span><span class="w"> </span><span class="p">})</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16"></a><span class="w">  </span><span class="nx">lastName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17"></a>
+<a id="__codelineno-8-18" name="__codelineno-8-18"></a><span class="w">  </span><span class="kd">@Type</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Number</span><span class="p">)</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19"></a><span class="w">  </span><span class="kd">@IsInt</span><span class="p">({</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">'The age must be an integer.'</span><span class="w"> </span><span class="p">})</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20"></a><span class="w">  </span><span class="kd">@Min</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">'The age must be positive.'</span><span class="w"> </span><span class="p">})</span>
+<a id="__codelineno-8-21" name="__codelineno-8-21"></a><span class="w">  </span><span class="kd">@Max</span><span class="p">(</span><span class="mf">150</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">'The age cannot exceed 150.'</span><span class="w"> </span><span class="p">})</span>
+<a id="__codelineno-8-22" name="__codelineno-8-22"></a><span class="w">  </span><span class="nx">age</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<a id="__codelineno-8-23" name="__codelineno-8-23"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Het formulier en de bijbehorende beperkingen (zie voorbeeld 19). De functie <strong><em>[validateForm]</em></strong> (bestand <strong><em>[web/validation.ts]</em></strong>) is die uit voorbeeld 19, en <strong><em>[web/flash.ts]</em></strong> is die uit voorbeeld 20, aangevuld met een berichttype (succes of fout).</p>
+<p>Het bestand <strong><em>[src/web/persons.controller.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span>
+<span class="normal"><a href="#__codelineno-9-15">15</a></span>
+<span class="normal"><a href="#__codelineno-9-16">16</a></span>
+<span class="normal"><a href="#__codelineno-9-17">17</a></span>
+<span class="normal"><a href="#__codelineno-9-18">18</a></span>
+<span class="normal"><a href="#__codelineno-9-19">19</a></span>
+<span class="normal"><a href="#__codelineno-9-20">20</a></span>
+<span class="normal"><a href="#__codelineno-9-21">21</a></span>
+<span class="normal"><a href="#__codelineno-9-22">22</a></span>
+<span class="normal"><a href="#__codelineno-9-23">23</a></span>
+<span class="normal"><a href="#__codelineno-9-24">24</a></span>
+<span class="normal"><a href="#__codelineno-9-25">25</a></span>
+<span class="normal"><a href="#__codelineno-9-26">26</a></span>
+<span class="normal"><a href="#__codelineno-9-27">27</a></span>
+<span class="normal"><a href="#__codelineno-9-28">28</a></span>
+<span class="normal"><a href="#__codelineno-9-29">29</a></span>
+<span class="normal"><a href="#__codelineno-9-30">30</a></span>
+<span class="normal"><a href="#__codelineno-9-31">31</a></span>
+<span class="normal"><a href="#__codelineno-9-32">32</a></span>
+<span class="normal"><a href="#__codelineno-9-33">33</a></span>
+<span class="normal"><a href="#__codelineno-9-34">34</a></span>
+<span class="normal"><a href="#__codelineno-9-35">35</a></span>
+<span class="normal"><a href="#__codelineno-9-36">36</a></span>
+<span class="normal"><a href="#__codelineno-9-37">37</a></span>
+<span class="normal"><a href="#__codelineno-9-38">38</a></span>
+<span class="normal"><a href="#__codelineno-9-39">39</a></span>
+<span class="normal"><a href="#__codelineno-9-40">40</a></span>
+<span class="normal"><a href="#__codelineno-9-41">41</a></span>
+<span class="normal"><a href="#__codelineno-9-42">42</a></span>
+<span class="normal"><a href="#__codelineno-9-43">43</a></span>
+<span class="normal"><a href="#__codelineno-9-44">44</a></span>
+<span class="normal"><a href="#__codelineno-9-45">45</a></span>
+<span class="normal"><a href="#__codelineno-9-46">46</a></span>
+<span class="normal"><a href="#__codelineno-9-47">47</a></span>
+<span class="normal"><a href="#__codelineno-9-48">48</a></span>
+<span class="normal"><a href="#__codelineno-9-49">49</a></span>
+<span class="normal"><a href="#__codelineno-9-50">50</a></span>
+<span class="normal"><a href="#__codelineno-9-51">51</a></span>
+<span class="normal"><a href="#__codelineno-9-52">52</a></span>
+<span class="normal"><a href="#__codelineno-9-53">53</a></span>
+<span class="normal"><a href="#__codelineno-9-54">54</a></span>
+<span class="normal"><a href="#__codelineno-9-55">55</a></span>
+<span class="normal"><a href="#__codelineno-9-56">56</a></span>
+<span class="normal"><a href="#__codelineno-9-57">57</a></span>
+<span class="normal"><a href="#__codelineno-9-58">58</a></span>
+<span class="normal"><a href="#__codelineno-9-59">59</a></span>
+<span class="normal"><a href="#__codelineno-9-60">60</a></span>
+<span class="normal"><a href="#__codelineno-9-61">61</a></span>
+<span class="normal"><a href="#__codelineno-9-62">62</a></span>
+<span class="normal"><a href="#__codelineno-9-63">63</a></span>
+<span class="normal"><a href="#__codelineno-9-64">64</a></span>
+<span class="normal"><a href="#__codelineno-9-65">65</a></span>
+<span class="normal"><a href="#__codelineno-9-66">66</a></span>
+<span class="normal"><a href="#__codelineno-9-67">67</a></span>
+<span class="normal"><a href="#__codelineno-9-68">68</a></span>
+<span class="normal"><a href="#__codelineno-9-69">69</a></span>
+<span class="normal"><a href="#__codelineno-9-70">70</a></span>
+<span class="normal"><a href="#__codelineno-9-71">71</a></span>
+<span class="normal"><a href="#__codelineno-9-72">72</a></span>
+<span class="normal"><a href="#__codelineno-9-73">73</a></span>
+<span class="normal"><a href="#__codelineno-9-74">74</a></span>
+<span class="normal"><a href="#__codelineno-9-75">75</a></span>
+<span class="normal"><a href="#__codelineno-9-76">76</a></span>
+<span class="normal"><a href="#__codelineno-9-77">77</a></span>
+<span class="normal"><a href="#__codelineno-9-78">78</a></span>
+<span class="normal"><a href="#__codelineno-9-79">79</a></span>
+<span class="normal"><a href="#__codelineno-9-80">80</a></span>
+<span class="normal"><a href="#__codelineno-9-81">81</a></span>
+<span class="normal"><a href="#__codelineno-9-82">82</a></span>
+<span class="normal"><a href="#__codelineno-9-83">83</a></span>
+<span class="normal"><a href="#__codelineno-9-84">84</a></span>
+<span class="normal"><a href="#__codelineno-9-85">85</a></span>
+<span class="normal"><a href="#__codelineno-9-86">86</a></span>
+<span class="normal"><a href="#__codelineno-9-87">87</a></span>
+<span class="normal"><a href="#__codelineno-9-88">88</a></span>
+<span class="normal"><a href="#__codelineno-9-89">89</a></span>
+<span class="normal"><a href="#__codelineno-9-90">90</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Body</span><span class="p">,</span><span class="w"> </span><span class="nx">Controller</span><span class="p">,</span><span class="w"> </span><span class="nx">Get</span><span class="p">,</span><span class="w"> </span><span class="nx">Param</span><span class="p">,</span><span class="w"> </span><span class="nx">ParseIntPipe</span><span class="p">,</span><span class="w"> </span><span class="nx">Post</span><span class="p">,</span><span class="w"> </span><span class="nx">Redirect</span><span class="p">,</span><span class="w"> </span><span class="nx">Render</span><span class="p">,</span><span class="w"> </span><span class="nx">Res</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Response</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'express'</span><span class="p">;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">BusinessException</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'../business/business.exception'</span><span class="p">;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">PersonsBusiness</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'../business/persons.business'</span><span class="p">;</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">flash</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./flash'</span><span class="p">;</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">PersonFormDto</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./person-form.dto'</span><span class="p">;</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">validateForm</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./validation'</span><span class="p">;</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a>
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="c1">// de WEBLAAG: het verzoek lezen, de bedrijfslaag aanroepen, de view kiezen</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="kd">@Controller</span><span class="p">()</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">PersonsController</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">business</span><span class="o">:</span><span class="w"> </span><span class="kt">PersonsBusiness</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13"></a>
+<a id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">()</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15"></a><span class="w">  </span><span class="kd">@Redirect</span><span class="p">(</span><span class="s1">'/persons'</span><span class="p">)</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="w">  </span><span class="nx">root</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17"></a>
+<a id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'persons'</span><span class="p">)</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19"></a><span class="w">  </span><span class="kd">@Render</span><span class="p">(</span><span class="s1">'list'</span><span class="p">)</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20"></a><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">list</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">object</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">persons</span><span class="o">:</span><span class="w"> </span><span class="kt">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">business</span><span class="p">.</span><span class="nx">list</span><span class="p">()</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23"></a>
+<a id="__codelineno-9-24" name="__codelineno-9-24"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'persons/add'</span><span class="p">)</span>
+<a id="__codelineno-9-25" name="__codelineno-9-25"></a><span class="w">  </span><span class="kd">@Render</span><span class="p">(</span><span class="s1">'form'</span><span class="p">)</span>
+<a id="__codelineno-9-26" name="__codelineno-9-26"></a><span class="w">  </span><span class="nx">addForm</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">object</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-27" name="__codelineno-9-27"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">'Add a person'</span><span class="p">,</span><span class="w"> </span><span class="nx">action</span><span class="o">:</span><span class="w"> </span><span class="s1">'/persons/add'</span><span class="p">,</span><span class="w"> </span><span class="nx">values</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="nx">errors</span><span class="o">:</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-9-28" name="__codelineno-9-28"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-9-29" name="__codelineno-9-29"></a>
+<a id="__codelineno-9-30" name="__codelineno-9-30"></a><span class="w">  </span><span class="kd">@Post</span><span class="p">(</span><span class="s1">'persons/add'</span><span class="p">)</span>
+<a id="__codelineno-9-31" name="__codelineno-9-31"></a><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">add</span><span class="p">(</span><span class="kd">@Body</span><span class="p">()</span><span class="w"> </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="kt">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="kd">@Res</span><span class="p">()</span><span class="w"> </span><span class="nx">res</span><span class="o">:</span><span class="w"> </span><span class="kt">Response</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-32" name="__codelineno-9-32"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">'Add a person'</span><span class="p">,</span><span class="w"> </span><span class="nx">action</span><span class="o">:</span><span class="w"> </span><span class="s1">'/persons/add'</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-9-33" name="__codelineno-9-33"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">dto</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">validateForm</span><span class="p">(</span><span class="nx">PersonFormDto</span><span class="p">,</span><span class="w"> </span><span class="nx">body</span><span class="p">);</span>
+<a id="__codelineno-9-34" name="__codelineno-9-34"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">errors</span><span class="p">).</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-35" name="__codelineno-9-35"></a><span class="w">      </span><span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">'form'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="nx">view</span><span class="p">,</span><span class="w"> </span><span class="nx">values</span><span class="o">:</span><span class="w"> </span><span class="kt">body</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">'The form contains errors.'</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-9-36" name="__codelineno-9-36"></a><span class="w">      </span><span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-9-37" name="__codelineno-9-37"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-38" name="__codelineno-9-38"></a><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-39" name="__codelineno-9-39"></a><span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">business</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">dto</span><span class="p">);</span>
+<a id="__codelineno-9-40" name="__codelineno-9-40"></a><span class="w">      </span><span class="nx">flash</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'success'</span><span class="p">,</span><span class="w"> </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">p</span><span class="p">.</span><span class="nx">firstName</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nx">p</span><span class="p">.</span><span class="nx">lastName</span><span class="si">}</span><span class="sb"> has been added.`</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-9-41" name="__codelineno-9-41"></a><span class="w">      </span><span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">'/persons'</span><span class="p">);</span>
+<a id="__codelineno-9-42" name="__codelineno-9-42"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-43" name="__codelineno-9-43"></a><span class="w">      </span><span class="c1">// een bedrijfsregel heeft de toevoeging geweigerd: we tonen het formulier opnieuw</span>
+<a id="__codelineno-9-44" name="__codelineno-9-44"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">BusinessException</span><span class="p">))</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="nx">e</span><span class="p">;</span>
+<a id="__codelineno-9-45" name="__codelineno-9-45"></a><span class="w">      </span><span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">'form'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="nx">view</span><span class="p">,</span><span class="w"> </span><span class="nx">values</span><span class="o">:</span><span class="w"> </span><span class="kt">body</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="kt">e.message</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-9-46" name="__codelineno-9-46"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-47" name="__codelineno-9-47"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-9-48" name="__codelineno-9-48"></a>
+<a id="__codelineno-9-49" name="__codelineno-9-49"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'persons/:id/edit'</span><span class="p">)</span>
+<a id="__codelineno-9-50" name="__codelineno-9-50"></a><span class="w">  </span><span class="kd">@Render</span><span class="p">(</span><span class="s1">'form'</span><span class="p">)</span>
+<a id="__codelineno-9-51" name="__codelineno-9-51"></a><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">editForm</span><span class="p">(</span><span class="kd">@Param</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span><span class="w"> </span><span class="nx">ParseIntPipe</span><span class="p">)</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">object</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-52" name="__codelineno-9-52"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">business</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<a id="__codelineno-9-53" name="__codelineno-9-53"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">'Edit a person'</span><span class="p">,</span><span class="w"> </span><span class="nx">action</span><span class="o">:</span><span class="w"> </span><span class="sb">`/persons/</span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">/edit`</span><span class="p">,</span><span class="w"> </span><span class="nx">values</span><span class="o">:</span><span class="w"> </span><span class="kt">p</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="o">:</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-9-54" name="__codelineno-9-54"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-9-55" name="__codelineno-9-55"></a>
+<a id="__codelineno-9-56" name="__codelineno-9-56"></a><span class="w">  </span><span class="kd">@Post</span><span class="p">(</span><span class="s1">'persons/:id/edit'</span><span class="p">)</span>
+<a id="__codelineno-9-57" name="__codelineno-9-57"></a><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">edit</span><span class="p">(</span>
+<a id="__codelineno-9-58" name="__codelineno-9-58"></a><span class="w">    </span><span class="kd">@Param</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span><span class="w"> </span><span class="nx">ParseIntPipe</span><span class="p">)</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span>
+<a id="__codelineno-9-59" name="__codelineno-9-59"></a><span class="w">    </span><span class="kd">@Body</span><span class="p">()</span><span class="w"> </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="kt">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;</span><span class="p">,</span>
+<a id="__codelineno-9-60" name="__codelineno-9-60"></a><span class="w">    </span><span class="kd">@Res</span><span class="p">()</span><span class="w"> </span><span class="nx">res</span><span class="o">:</span><span class="w"> </span><span class="kt">Response</span><span class="p">,</span>
+<a id="__codelineno-9-61" name="__codelineno-9-61"></a><span class="w">  </span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-62" name="__codelineno-9-62"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">'Edit a person'</span><span class="p">,</span><span class="w"> </span><span class="nx">action</span><span class="o">:</span><span class="w"> </span><span class="sb">`/persons/</span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">/edit`</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-9-63" name="__codelineno-9-63"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">dto</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">validateForm</span><span class="p">(</span><span class="nx">PersonFormDto</span><span class="p">,</span><span class="w"> </span><span class="nx">body</span><span class="p">);</span>
+<a id="__codelineno-9-64" name="__codelineno-9-64"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">errors</span><span class="p">).</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-65" name="__codelineno-9-65"></a><span class="w">      </span><span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">'form'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="nx">view</span><span class="p">,</span><span class="w"> </span><span class="nx">values</span><span class="o">:</span><span class="w"> </span><span class="kt">body</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">'The form contains errors.'</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-9-66" name="__codelineno-9-66"></a><span class="w">      </span><span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-9-67" name="__codelineno-9-67"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-68" name="__codelineno-9-68"></a><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-69" name="__codelineno-9-69"></a><span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">business</span><span class="p">.</span><span class="nx">edit</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="nx">body</span><span class="p">.</span><span class="nx">version</span><span class="p">),</span><span class="w"> </span><span class="nx">dto</span><span class="p">);</span>
+<a id="__codelineno-9-70" name="__codelineno-9-70"></a><span class="w">      </span><span class="nx">flash</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'success'</span><span class="p">,</span><span class="w"> </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">p</span><span class="p">.</span><span class="nx">firstName</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nx">p</span><span class="p">.</span><span class="nx">lastName</span><span class="si">}</span><span class="sb"> has been modified.`</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-9-71" name="__codelineno-9-71"></a><span class="w">      </span><span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">'/persons'</span><span class="p">);</span>
+<a id="__codelineno-9-72" name="__codelineno-9-72"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-73" name="__codelineno-9-73"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">BusinessException</span><span class="p">))</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="nx">e</span><span class="p">;</span>
+<a id="__codelineno-9-74" name="__codelineno-9-74"></a><span class="w">      </span><span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">'form'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="nx">view</span><span class="p">,</span><span class="w"> </span><span class="nx">values</span><span class="o">:</span><span class="w"> </span><span class="kt">body</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="kt">e.message</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-9-75" name="__codelineno-9-75"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-76" name="__codelineno-9-76"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-9-77" name="__codelineno-9-77"></a>
+<a id="__codelineno-9-78" name="__codelineno-9-78"></a><span class="w">  </span><span class="kd">@Post</span><span class="p">(</span><span class="s1">'persons/:id/delete'</span><span class="p">)</span>
+<a id="__codelineno-9-79" name="__codelineno-9-79"></a><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="ow">delete</span><span class="p">(</span><span class="kd">@Param</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span><span class="w"> </span><span class="nx">ParseIntPipe</span><span class="p">)</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="kd">@Res</span><span class="p">()</span><span class="w"> </span><span class="nx">res</span><span class="o">:</span><span class="w"> </span><span class="kt">Response</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-80" name="__codelineno-9-80"></a><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-81" name="__codelineno-9-81"></a><span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">business</span><span class="p">.</span><span class="ow">delete</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<a id="__codelineno-9-82" name="__codelineno-9-82"></a><span class="w">      </span><span class="nx">flash</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'success'</span><span class="p">,</span><span class="w"> </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">p</span><span class="p">.</span><span class="nx">firstName</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nx">p</span><span class="p">.</span><span class="nx">lastName</span><span class="si">}</span><span class="sb"> has been deleted.`</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-9-83" name="__codelineno-9-83"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-84" name="__codelineno-9-84"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">BusinessException</span><span class="p">))</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="nx">e</span><span class="p">;</span>
+<a id="__codelineno-9-85" name="__codelineno-9-85"></a><span class="w">      </span><span class="c1">// geen formulier om opnieuw te tonen: de fout reist ook als flash mee</span>
+<a id="__codelineno-9-86" name="__codelineno-9-86"></a><span class="w">      </span><span class="nx">flash</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'danger'</span><span class="p">,</span><span class="w"> </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="kt">e.message</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-9-87" name="__codelineno-9-87"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-88" name="__codelineno-9-88"></a><span class="w">    </span><span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">'/persons'</span><span class="p">);</span>
+<a id="__codelineno-9-89" name="__codelineno-9-89"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-9-90" name="__codelineno-9-90"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>We lichten deze code toe:</p>
+<ul>
+<li>regel 12: de controller kent alleen de bedrijfslaag;</li>
+<li>regels 14–16: de root van de site verwijst door naar de lijst;</li>
+<li>regels 18–22: een asynchrone actie: de lijst wordt uit de database opgehaald;</li>
+<li>regels 30–47: het toevoegen, in drie stappen: validatie van het formulier (fouten → de pagina wordt opnieuw geladen), aanroep van de bedrijfslaag (succes → pop-upbericht en doorverwijzing), <strong><em>[BusinessException]</em></strong> (→ de pagina wordt opnieuw geladen met de melding onderaan de pagina). Een andere exception wordt doorgegeven (<strong><em>[throw e]</em></strong>): dit is een anomalie, die het exception filter van <em>[NestJS]</em> omzet in een 500-fout;</li>
+<li>regels 49–54: het wijzigingsformulier, vooraf ingevuld met het record dat uit de database is opgehaald (inclusief de versie ervan);</li>
+<li>regels 56–61: hetzelfde proces als bij het toevoegen; de versie die het formulier teruggeeft, wordt aan de bedrijfslaag doorgegeven;</li>
+<li>regels 78–89: verwijderen. Er is geen formulier om opnieuw te tonen: eventuele fouten staan ook in het flashbericht.</li>
+</ul>
+<p>Het bestand <strong><em>[src/app.module.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span>
+<span class="normal"><a href="#__codelineno-10-14">14</a></span>
+<span class="normal"><a href="#__codelineno-10-15">15</a></span>
+<span class="normal"><a href="#__codelineno-10-16">16</a></span>
+<span class="normal"><a href="#__codelineno-10-17">17</a></span>
+<span class="normal"><a href="#__codelineno-10-18">18</a></span>
+<span class="normal"><a href="#__codelineno-10-19">19</a></span>
+<span class="normal"><a href="#__codelineno-10-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Module</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">TypeOrmModule</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/typeorm'</span><span class="p">;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">databaseConfig</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./config/database.config'</span><span class="p">;</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">PersonsDao</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./dao/persons.dao'</span><span class="p">;</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Person</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./entities/person.entity'</span><span class="p">;</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">PersonsBusiness</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./business/persons.business'</span><span class="p">;</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">PersonsController</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./web/persons.controller'</span><span class="p">;</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a>
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="kd">@Module</span><span class="p">({</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="w">  </span><span class="nx">imports</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="w">    </span><span class="c1">// de databaseverbinding, voor de hele applicatie</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="w">    </span><span class="nx">TypeOrmModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">databaseConfig</span><span class="p">()),</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="w">    </span><span class="c1">// de Repository&lt;T&gt; die in deze module kan worden geïnjecteerd</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="w">    </span><span class="nx">TypeOrmModule</span><span class="p">.</span><span class="nx">forFeature</span><span class="p">([</span><span class="nx">Person</span><span class="p">]),</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="w">  </span><span class="p">],</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16"></a><span class="w">  </span><span class="nx">controllers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">PersonsController</span><span class="p">],</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17"></a><span class="w">  </span><span class="c1">// de drie lagen: web (controller) -&gt; bedrijfslaag -&gt; dao</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18"></a><span class="w">  </span><span class="nx">providers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">PersonsBusiness</span><span class="p">,</span><span class="w"> </span><span class="nx">PersonsDao</span><span class="p">],</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19"></a><span class="p">})</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AppModule</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>regel 12: de databaseverbinding voor de hele applicatie;</li>
+<li>regel 14: maakt het mogelijk de <strong><em>[Repository&lt;Person&gt;]</em></strong> te injecteren;</li>
+<li>regel 18: de services van de bedrijfslaag en de DAO.</li>
+</ul>
+<p>Het bestand <strong><em>[views/form.hbs]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span>
+<span class="normal"><a href="#__codelineno-11-11">11</a></span>
+<span class="normal"><a href="#__codelineno-11-12">12</a></span>
+<span class="normal"><a href="#__codelineno-11-13">13</a></span>
+<span class="normal"><a href="#__codelineno-11-14">14</a></span>
+<span class="normal"><a href="#__codelineno-11-15">15</a></span>
+<span class="normal"><a href="#__codelineno-11-16">16</a></span>
+<span class="normal"><a href="#__codelineno-11-17">17</a></span>
+<span class="normal"><a href="#__codelineno-11-18">18</a></span>
+<span class="normal"><a href="#__codelineno-11-19">19</a></span>
+<span class="normal"><a href="#__codelineno-11-20">20</a></span>
+<span class="normal"><a href="#__codelineno-11-21">21</a></span>
+<span class="normal"><a href="#__codelineno-11-22">22</a></span>
+<span class="normal"><a href="#__codelineno-11-23">23</a></span>
+<span class="normal"><a href="#__codelineno-11-24">24</a></span>
+<span class="normal"><a href="#__codelineno-11-25">25</a></span>
+<span class="normal"><a href="#__codelineno-11-26">26</a></span>
+<span class="normal"><a href="#__codelineno-11-27">27</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">"h3"</span><span class="p">&gt;</span>{{title}}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">"post"</span> <span class="na">action</span><span class="o">=</span><span class="s">"{{action}}"</span> <span class="na">novalidate</span><span class="p">&gt;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>  {{!-- de versie van het gelezen record, teruggestuurd bij de wijziging --}}
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">"hidden"</span> <span class="na">name</span><span class="o">=</span><span class="s">"version"</span> <span class="na">value</span><span class="o">=</span><span class="s">"{{values.version}}"</span><span class="p">&gt;</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"row g-2 mb-3"</span><span class="p">&gt;</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"col-sm-5"</span><span class="p">&gt;</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a>      <span class="p">&lt;</span><span class="nt">label</span> <span class="na">class</span><span class="o">=</span><span class="s">"form-label"</span> <span class="na">for</span><span class="o">=</span><span class="s">"firstName"</span><span class="p">&gt;</span>First name<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a>      <span class="p">&lt;</span><span class="nt">input</span> <span class="na">class</span><span class="o">=</span><span class="s">"form-control {{#if errors.firstName}}is-invalid{{/if}}"</span> <span class="na">id</span><span class="o">=</span><span class="s">"firstName"</span> <span class="na">name</span><span class="o">=</span><span class="s">"firstName"</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9"></a>             <span class="na">value</span><span class="o">=</span><span class="s">"{{values.firstName}}"</span> <span class="na">maxlength</span><span class="o">=</span><span class="s">"30"</span> <span class="na">required</span><span class="p">&gt;</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10"></a>      {{#if errors.firstName}}<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"invalid-feedback"</span><span class="p">&gt;</span>{{errors.firstName}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>{{/if}}
+<a id="__codelineno-11-11" name="__codelineno-11-11"></a>    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"col-sm-5"</span><span class="p">&gt;</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13"></a>      <span class="p">&lt;</span><span class="nt">label</span> <span class="na">class</span><span class="o">=</span><span class="s">"form-label"</span> <span class="na">for</span><span class="o">=</span><span class="s">"lastName"</span><span class="p">&gt;</span>Last name<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14"></a>      <span class="p">&lt;</span><span class="nt">input</span> <span class="na">class</span><span class="o">=</span><span class="s">"form-control {{#if errors.lastName}}is-invalid{{/if}}"</span> <span class="na">id</span><span class="o">=</span><span class="s">"lastName"</span> <span class="na">name</span><span class="o">=</span><span class="s">"lastName"</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15"></a>             <span class="na">value</span><span class="o">=</span><span class="s">"{{values.lastName}}"</span> <span class="na">maxlength</span><span class="o">=</span><span class="s">"30"</span> <span class="na">required</span><span class="p">&gt;</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16"></a>      {{#if errors.lastName}}<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"invalid-feedback"</span><span class="p">&gt;</span>{{errors.lastName}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>{{/if}}
+<a id="__codelineno-11-17" name="__codelineno-11-17"></a>    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"col-sm-2"</span><span class="p">&gt;</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19"></a>      <span class="p">&lt;</span><span class="nt">label</span> <span class="na">class</span><span class="o">=</span><span class="s">"form-label"</span> <span class="na">for</span><span class="o">=</span><span class="s">"age"</span><span class="p">&gt;</span>Age<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20"></a>      <span class="p">&lt;</span><span class="nt">input</span> <span class="na">class</span><span class="o">=</span><span class="s">"form-control {{#if errors.age}}is-invalid{{/if}}"</span> <span class="na">id</span><span class="o">=</span><span class="s">"age"</span> <span class="na">name</span><span class="o">=</span><span class="s">"age"</span> <span class="na">type</span><span class="o">=</span><span class="s">"number"</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21"></a>             <span class="na">value</span><span class="o">=</span><span class="s">"{{values.age}}"</span> <span class="na">required</span><span class="p">&gt;</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22"></a>      {{#if errors.age}}<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"invalid-feedback"</span><span class="p">&gt;</span>{{errors.age}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>{{/if}}
+<a id="__codelineno-11-23" name="__codelineno-11-23"></a>    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-11-24" name="__codelineno-11-24"></a>  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-11-25" name="__codelineno-11-25"></a>  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">"btn btn-primary"</span> <span class="na">type</span><span class="o">=</span><span class="s">"submit"</span><span class="p">&gt;</span>Save<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<a id="__codelineno-11-26" name="__codelineno-11-26"></a>  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">"btn btn-link"</span> <span class="na">href</span><span class="o">=</span><span class="s">"/persons"</span><span class="p">&gt;</span>Back to the list<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<a id="__codelineno-11-27" name="__codelineno-11-27"></a><span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div></td></tr></table></div>
+<p>Regel 4: het verborgen veld dat de versie van het record bevat. De view wordt gebruikt voor het toevoegen en het wijzigen van records: de titel en de URL voor het verzenden (<strong><em>[action]</em></strong>) worden door de controller aangeleverd. De views <strong><em>[list.hbs]</em></strong> en <strong><em>[layout.hbs]</em></strong>, samen met het bevestigingsscript, zijn dezelfde als in voorbeelden 20 en 21.</p>
+<h3 id="917-uitvoering">9.1.7. <span style="color: #1f4d78">Uitvoering</span></h3>
+<p>De verbindingsparameters worden via omgevingsvariabelen doorgegeven als de standaardwaarden niet geschikt zijn. Onder <em>[Windows]</em> (<em>[PowerShell]</em>):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>$env:DB_USERNAME="root"; $env:DB_PASSWORD=""; $env:DB_LOGGING="true"; npx nest start
+</code></pre></div></td></tr></table></div>
+<p>De lijst:</p>
+<p><img src="images/1000000000000322000001412C917FDC.png" width="489" height="196" style="width:12.935cm;height:5.177cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/1000000000000322000001412C917FDC.png" /></p>
+<p>Een ongeldig formulier:</p>
+<p><img src="images/100000000000032200000165B5DC6980.png" width="489" height="218" style="width:12.935cm;height:5.757cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/100000000000032200000165B5DC6980.png" /></p>
+<p>Een namesake, in kleine letters en zonder accenten geschreven: de bedrijfsregel detecteert die, omdat MySQL vergelijkt op basis van de collatie van de database:</p>
+<p><img src="images/100000000000032200000137C4159032.png" width="489" height="190" style="width:12.935cm;height:5.017cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/100000000000032200000137C4159032.png" /></p>
+<p>Een geslaagde toevoeging, en de bijbehorende SQL-opdrachten (<strong><em>[DB_LOGGING=true]</em></strong>):</p>
+<p><img src="images/1000000000000322000001BB0C9F7A9F.png" width="489" height="270" style="width:12.935cm;height:7.146cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/1000000000000322000001BB0C9F7A9F.png" /></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span>
+<span class="normal"><a href="#__codelineno-13-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>query: START TRANSACTION
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>query: SELECT `Person`.`id` AS `Person_id`, `Person`.`version` AS `Person_version`, `Person`.`first_name` AS `Person_first_name`, `Person`.`last_name` AS `Person_last_name`, `Person`.`age` AS `Person_age` FROM `persons` `Person` WHERE ((`Person`.`first_name` = ?) AND (`Person`.`last_name` = ?) AND (`Person`.`id` != ?)) LIMIT 1 -- PARAMETERS: ["Sylvie","Durand",0]
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a>query: INSERT INTO `persons`(`id`, `version`, `first_name`, `last_name`, `age`) VALUES (DEFAULT, 1, ?, ?, ?) -- PARAMETERS: ["Sylvie","Durand",29]
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a>query: SELECT `Person`.`id` AS `Person_id`, `Person`.`version` AS `Person_version` FROM `persons` `Person` WHERE `Person`.`id` = ? -- PARAMETERS: [4]
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a>query: COMMIT
+<a id="__codelineno-13-6" name="__codelineno-13-6"></a>query: SELECT `Person`.`id` AS `Person_id`, `Person`.`version` AS `Person_version`, `Person`.`first_name` AS `Person_first_name`, `Person`.`last_name` AS `Person_last_name`, `Person`.`age` AS `Person_age` FROM `persons` `Person` ORDER BY `Person`.`last_name` ASC, `Person`.`first_name` ASC
+</code></pre></div></td></tr></table></div>
+<p>We zien de transactie (<strong><em>[START TRANSACTION]</em></strong> ... <strong><em>[COMMIT]</em></strong>), het zoeken naar duplicaten, het invoegen met versie 1 en, na de doorverwijzing, het lezen van de lijst. De optimistische vergrendeling: twee formulieren zijn geopend voor hetzelfde record; het eerste wordt opgeslagen (de versie wordt 2); het tweede, dat nog versie 1 heeft, wordt geweigerd:</p>
+<p><img src="images/100000000000032200000137CD6E69EF.png" width="489" height="190" style="width:12.935cm;height:5.017cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/100000000000032200000137CD6E69EF.png" /></p>
+<p>Verwijderen, met bevestiging:</p>
+<p><img src="images/1000000000000322000001717A7A001A.png" width="489" height="225" style="width:12.935cm;height:5.951cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/1000000000000322000001717A7A001A.png" /></p>
+<p><img src="images/10000000000003220000018BE3D22654.png" width="489" height="241" style="width:12.935cm;height:6.371cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000003220000018BE3D22654.png" /></p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://stahe.github.io" target="_blank">
+          https://stahe.github.io
+        </a>
+        <br>
+        Deze tutorial, geschreven door de AI <strong>Claude</strong> van Anthropic en nagelezen door <strong>Serge Tahé</strong>, wordt aan het publiek ter beschikking gesteld onder de voorwaarden van de licentie
+        <em>Creative Commons Naamsvermelding – Niet-commercieel –
+        Gelijk delen 3.0 Unported</em>.
+
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>

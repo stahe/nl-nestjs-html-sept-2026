@@ -1,0 +1,2190 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Stapsgewijze inleiding tot het webframework [NestJS]">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/nl-nestjs-html-sept-2026/controllers-acties-routing.html">
+      
+      
+        <link rel="prev" href="inleiding.html">
+      
+      
+        <link rel="next" href="het-model-van-de-actie.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>2. Controllers, acties, routing - Stapsgewijze inleiding tot het webframework [NestJS]</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Stapsgewijze inleiding tot het webframework [NestJS]";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-controllers-acties-routing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Stapsgewijze inleiding tot het webframework [NestJS]" class="md-header__button md-logo" aria-label="Stapsgewijze inleiding tot het webframework [NestJS]" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Stapsgewijze inleiding tot het webframework [NestJS]
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2. Controllers, acties, routing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Overschakelen naar donkere modus"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Overschakelen naar donkere modus" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Overschakelen naar lichte modus"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Overschakelen naar lichte modus" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://stahe.github.io/nl-nestjs-html-sept-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Stapsgewijze inleiding tot het webframework [NestJS]" class="md-nav__button md-logo" aria-label="Stapsgewijze inleiding tot het webframework [NestJS]" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Stapsgewijze inleiding tot het webframework [NestJS]
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://stahe.github.io/nl-nestjs-html-sept-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welkom
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="inleiding.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inleiding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Controllers, acties, routing
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="controllers-acties-routing.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Controllers, acties, routing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-voorbeeld-01-de-structuur-van-een-nestjs-applicatie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Voorbeeld 01: de structuur van een NestJS-applicatie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1. Voorbeeld 01: de structuur van een NestJS-applicatie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-het-startpunt-maints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1. Het startpunt: main.ts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-de-rootmodule-appmodulets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2. De rootmodule: app.module.ts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213-de-controller-appcontrollerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3. De controller: app.controller.ts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214-uitvoering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4. Uitvoering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-voorbeeld-02-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Voorbeeld 02: routing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-voorbeeld-03-antwoorden-van-een-actie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Voorbeeld 03: antwoorden van een actie
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-voorbeeld-04-omleidingen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4. Voorbeeld 04: omleidingen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-voorbeeld-05-de-objecten-request-en-response-in-express" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5. Voorbeeld 05: de objecten Request en Response in Express
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-voorbeeld-06-modules-services-en-dependency-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6. Voorbeeld 06: modules, services en dependency injection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6. Voorbeeld 06: modules, services en dependency injection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261-de-service-productsservice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.1. De service ProductsService
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262-de-controller-productscontroller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.2. De controller ProductsController
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263-de-module-productsmodule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.3. De module ProductsModule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#264-de-module-clientsmodule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.4. De module ClientsModule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#265-de-rootmodule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.5. De rootmodule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#266-uitvoering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.6. Uitvoering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="het-model-van-de-actie.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Het model van de actie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="de-view-en-het-bijbehorende-model.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. De view en het bijbehorende model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="internationalisering.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Internationalisering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gegevensscopes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gegevensscopes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="de-levenscyclus-van-een-verzoek.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. De levenscyclus van een verzoek
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="authenticatie-en-autorisatie.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Authenticatie en autorisatie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gelaagde-architectuur-en-gegevenstoegang.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Gelaagde architectuur en gegevenstoegang
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tussentijdse-conclusie.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Tussentijdse conclusie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="casus-de-applicatie-rdvmedecins.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Casus: de applicatie RdvMedecins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conclusie.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Conclusie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bijlagen.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Bijlagen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="2-controllers-acties-routing">2. <span style="color: #2e74b5">Controllers, acties, routing</span></h1>
+<p>Dit hoofdstuk behandelt de weg die een verzoek aflegt, van de browser tot de actie die het verwerkt, en het antwoord dat die actie teruggeeft. Views worden pas in Hoofdstuk 4 geïntroduceerd: hier geven acties rechtstreeks tekst of JSON terug.</p>
+<h2 id="21-voorbeeld-01-de-structuur-van-een-nestjs-applicatie">2.1. <span style="color: #2e74b5">Voorbeeld 01: de structuur van een NestJS-applicatie</span></h2>
+<p>Het eerste voorbeeld is de kleinst mogelijke <em>[NestJS]</em>-applicatie. Ze bestaat uit drie bestanden:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>01-structure/
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>├── src/
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>│   ├── app.controller.ts
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>│   ├── app.module.ts
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>│   └── main.ts
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>├── nest-cli.json
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>└── tsconfig.json
+</code></pre></div></td></tr></table></div>
+<h3 id="211-het-startpunt-maints">2.1.1. <span style="color: #1f4d78">Het startpunt: main.ts</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">NestFactory</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/core'</span><span class="p">;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AppModule</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./app.module'</span><span class="p">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">bootstrap</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">  </span><span class="c1">// bouwt de applicatie vanuit de rootmodule</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">NestFactory</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">  </span><span class="c1">// start de HTTP-server op poort 3000</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">3000</span><span class="p">);</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Server started on http://localhost:3000'</span><span class="p">);</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="p">}</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="nx">bootstrap</span><span class="p">();</span>
+</code></pre></div></td></tr></table></div>
+<p>We lichten deze code toe:</p>
+<ul>
+<li>regel 1: <strong><em>[NestFactory]</em></strong> is de “fabriek” voor <em>[NestJS]</em>-applicaties;</li>
+<li>regel 2: de <strong>rootmodule</strong> van de applicatie, die we later behandelen;</li>
+<li>regel 4: de startfunctie is asynchroon (<strong><em>[async]</em></strong>): het bouwen van de applicatie en het starten van de server kosten tijd, en we wachten (<strong><em>[await]</em></strong>) tot elke stap is voltooid;</li>
+<li>regel 6: bouwt de applicatie op vanuit de rootmodule. <em>[NestJS]</em> ontdekt vervolgens alle controllers en services van de applicatie en maakt hun instanties aan;</li>
+<li>regel 8: start de HTTP-server op poort 3000;</li>
+<li>regel 12: roept de startfunctie aan.</li>
+</ul>
+<h3 id="212-de-rootmodule-appmodulets">2.1.2. <span style="color: #1f4d78">De rootmodule: app.module.ts</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Module</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AppController</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./app.controller'</span><span class="p">;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="kd">@Module</span><span class="p">({</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">  </span><span class="nx">controllers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">AppController</span><span class="p">],</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="p">})</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AppModule</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Regel 4: de decorator <strong><em>[@Module]</em></strong> maakt van de klasse <strong><em>[AppModule]</em></strong> een <em>[NestJS]</em><strong>-module</strong>. Een module groepeert controllers en services die bij elkaar horen. Een kleine applicatie heeft maar één module; een grote heeft er meerdere (zie Voorbeeld 06);</li>
+<li>regel 5: de lijst met controllers in de module;</li>
+<li>regel 7: de klasse zelf is leeg: alles staat in de decorator.</li>
+</ul>
+<h3 id="213-de-controller-appcontrollerts">2.1.3. <span style="color: #1f4d78">De controller: app.controller.ts</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span>
+<span class="normal"><a href="#__codelineno-3-8">8</a></span>
+<span class="normal"><a href="#__codelineno-3-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Controller</span><span class="p">,</span><span class="w"> </span><span class="nx">Get</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="kd">@Controller</span><span class="p">()</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AppController</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">()</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">  </span><span class="nx">home</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'Hello from NestJS!'</span><span class="p">;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Regel 3: de decorator <strong><em>[@Controller()]</em></strong> maakt van de klasse een <strong>controller</strong>. Zonder argumenten beginnen de routes ervan bij de root van de site (<strong><em>[/]</em></strong>);</li>
+<li>Regel 5: de decorator <strong><em>[@Get()]</em></strong> koppelt de methode <strong><em>[home]</em></strong> aan verzoeken van het type <strong><em>[GET /]</em></strong>. Een methode die op deze manier is gedecoreerd, is een <strong>actie</strong>;</li>
+<li>regel 7: de waarde die de actie teruggeeft, is het antwoord dat naar de browser wordt gestuurd.</li>
+</ul>
+<h3 id="214-uitvoering">2.1.4. <span style="color: #1f4d78">Uitvoering</span></h3>
+<p>Typ in een console die is geopend in de map <strong><em>[01-structure]</em></strong> het volgende: <strong><em>[npx nest start]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>[Nest] 12654  - 09/23/2026, 4:02:05 PM     LOG [NestFactory] Starting Nest application...
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>[Nest] 12654  - 09/23/2026, 4:02:05 PM     LOG [InstanceLoader] AppModule dependencies initialized +9ms
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>[Nest] 12654  - 09/23/2026, 4:02:05 PM     LOG [RoutesResolver] AppController {/}: +4ms
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>[Nest] 12654  - 09/23/2026, 4:02:05 PM     LOG [RouterExplorer] Mapped {/, GET} route +2ms
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>[Nest] 12654  - 09/23/2026, 4:02:05 PM     LOG [NestApplication] Nest application successfully started +2ms
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>Server started on http://localhost:3000
+</code></pre></div></td></tr></table></div>
+<p><em>[NestJS]</em> toont de routes die het heeft gevonden: in dit geval slechts één, <strong><em>[{/, GET}]</em></strong>, afgehandeld door <strong><em>[AppController]</em></strong>. We vragen de URL <strong><em>[http://localhost:3000/]</em></strong> op met een browser:</p>
+<p><img src="images/10000000000002BE000000A24B0CA12F.png" width="428" height="99" style="width:11.322cm;height:2.612cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000002BE000000A24B0CA12F.png" /></p>
+<p>en vervolgens met <em>[curl]</em>. De optie <strong><em>[-i]</em></strong> toont ook de HTTP-headers van het antwoord (hier laten we er maar een paar zien):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>curl -i http://localhost:3000/
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>Content-Type: text/html; charset=utf-8
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>Content-Length: 18
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a>Hello from NestJS!
+</code></pre></div></td></tr></table></div>
+<p>Een tekenreeks die door een actie wordt teruggegeven, wordt verzonden met de header <strong><em>[Content-Type: text/html]</em></strong>: de browser interpreteert die als HTML.</p>
+<h2 id="22-voorbeeld-02-routing">2.2. <span style="color: #2e74b5">Voorbeeld 02: routing</span></h2>
+<p><strong>Routing</strong> koppelt een URL en een HTTP-methode (GET, POST...) aan een actie. Voorbeeld 02 heeft twee controllers:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span>
+<span class="normal"><a href="#__codelineno-7-5">5</a></span>
+<span class="normal"><a href="#__codelineno-7-6">6</a></span>
+<span class="normal"><a href="#__codelineno-7-7">7</a></span>
+<span class="normal"><a href="#__codelineno-7-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>02-routing/
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>├── src/
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>│   ├── app.controller.ts
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>│   ├── app.module.ts
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a>│   ├── first.controller.ts
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a>│   └── main.ts
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a>├── nest-cli.json
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a>└── tsconfig.json
+</code></pre></div></td></tr></table></div>
+<p>Het bestand <strong><em>[src/app.module.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span>
+<span class="normal"><a href="#__codelineno-8-6">6</a></span>
+<span class="normal"><a href="#__codelineno-8-7">7</a></span>
+<span class="normal"><a href="#__codelineno-8-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Module</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AppController</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./app.controller'</span><span class="p">;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">FirstController</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./first.controller'</span><span class="p">;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="kd">@Module</span><span class="p">({</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">  </span><span class="nx">controllers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">AppController</span><span class="p">,</span><span class="w"> </span><span class="nx">FirstController</span><span class="p">],</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="p">})</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AppModule</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div></td></tr></table></div>
+<p>Regel 6: de module declareert haar <strong>twee</strong> controllers.</p>
+<p>Het bestand <strong><em>[src/app.controller.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span>
+<span class="normal"><a href="#__codelineno-9-15">15</a></span>
+<span class="normal"><a href="#__codelineno-9-16">16</a></span>
+<span class="normal"><a href="#__codelineno-9-17">17</a></span>
+<span class="normal"><a href="#__codelineno-9-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Controller</span><span class="p">,</span><span class="w"> </span><span class="nx">Get</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="kd">@Controller</span><span class="p">()</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AppController</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">  </span><span class="c1">// GET /</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">()</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="w">  </span><span class="nx">home</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="sb">`&lt;h2&gt;Example 02 - routing&lt;/h2&gt;</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="sb">      &lt;ul&gt;</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="sb">        &lt;li&gt;&lt;a href="/first"&gt;/first&lt;/a&gt;&lt;/li&gt;</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="sb">        &lt;li&gt;&lt;a href="/first/action01"&gt;/first/action01&lt;/a&gt;&lt;/li&gt;</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="sb">        &lt;li&gt;&lt;a href="/first/products/17"&gt;/first/products/17&lt;/a&gt;&lt;/li&gt;</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="sb">        &lt;li&gt;&lt;a href="/first/products/17/reviews/3"&gt;/first/products/17/reviews/3&lt;/a&gt;&lt;/li&gt;</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="sb">        &lt;li&gt;&lt;a href="/first/files/images/logo.png"&gt;/first/files/images/logo.png&lt;/a&gt;&lt;/li&gt;</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15"></a><span class="sb">        &lt;li&gt;&lt;a href="/unknown"&gt;/unknown&lt;/a&gt;&lt;/li&gt;</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="sb">      &lt;/ul&gt;`</span><span class="p">;</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>De actie <strong><em>[home]</em></strong> (regel 6–17) geeft een HTML-pagina terug met koppelingen naar de acties van de andere controller:</p>
+<p><img src="images/10000000000002BE000000DD2FEE9F6A.png" width="428" height="135" style="width:11.322cm;height:3.565cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000002BE000000DD2FEE9F6A.png" /></p>
+<p>Het bestand <strong><em>[src/first.controller.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span>
+<span class="normal"><a href="#__codelineno-10-14">14</a></span>
+<span class="normal"><a href="#__codelineno-10-15">15</a></span>
+<span class="normal"><a href="#__codelineno-10-16">16</a></span>
+<span class="normal"><a href="#__codelineno-10-17">17</a></span>
+<span class="normal"><a href="#__codelineno-10-18">18</a></span>
+<span class="normal"><a href="#__codelineno-10-19">19</a></span>
+<span class="normal"><a href="#__codelineno-10-20">20</a></span>
+<span class="normal"><a href="#__codelineno-10-21">21</a></span>
+<span class="normal"><a href="#__codelineno-10-22">22</a></span>
+<span class="normal"><a href="#__codelineno-10-23">23</a></span>
+<span class="normal"><a href="#__codelineno-10-24">24</a></span>
+<span class="normal"><a href="#__codelineno-10-25">25</a></span>
+<span class="normal"><a href="#__codelineno-10-26">26</a></span>
+<span class="normal"><a href="#__codelineno-10-27">27</a></span>
+<span class="normal"><a href="#__codelineno-10-28">28</a></span>
+<span class="normal"><a href="#__codelineno-10-29">29</a></span>
+<span class="normal"><a href="#__codelineno-10-30">30</a></span>
+<span class="normal"><a href="#__codelineno-10-31">31</a></span>
+<span class="normal"><a href="#__codelineno-10-32">32</a></span>
+<span class="normal"><a href="#__codelineno-10-33">33</a></span>
+<span class="normal"><a href="#__codelineno-10-34">34</a></span>
+<span class="normal"><a href="#__codelineno-10-35">35</a></span>
+<span class="normal"><a href="#__codelineno-10-36">36</a></span>
+<span class="normal"><a href="#__codelineno-10-37">37</a></span>
+<span class="normal"><a href="#__codelineno-10-38">38</a></span>
+<span class="normal"><a href="#__codelineno-10-39">39</a></span>
+<span class="normal"><a href="#__codelineno-10-40">40</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Controller</span><span class="p">,</span><span class="w"> </span><span class="nx">Get</span><span class="p">,</span><span class="w"> </span><span class="nx">Param</span><span class="p">,</span><span class="w"> </span><span class="nx">Post</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="kd">@Controller</span><span class="p">(</span><span class="s1">'first'</span><span class="p">)</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">FirstController</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">  </span><span class="c1">// GET /first</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">()</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="w">  </span><span class="nx">index</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'Action [index] of the [first] controller'</span><span class="p">;</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10"></a>
+<a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="w">  </span><span class="c1">// GET /first/action01</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'action01'</span><span class="p">)</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="w">  </span><span class="nx">action01</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'Action [action01] of the [first] controller, GET request'</span><span class="p">;</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16"></a>
+<a id="__codelineno-10-17" name="__codelineno-10-17"></a><span class="w">  </span><span class="c1">// POST /first/action01: hetzelfde pad, een andere HTTP-methode</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18"></a><span class="w">  </span><span class="kd">@Post</span><span class="p">(</span><span class="s1">'action01'</span><span class="p">)</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19"></a><span class="w">  </span><span class="nx">action01Post</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'Action [action01Post] of the [first] controller, POST request'</span><span class="p">;</span>
+<a id="__codelineno-10-21" name="__codelineno-10-21"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-10-22" name="__codelineno-10-22"></a>
+<a id="__codelineno-10-23" name="__codelineno-10-23"></a><span class="w">  </span><span class="c1">// GET /first/products/17: [:id] is een routeparameter</span>
+<a id="__codelineno-10-24" name="__codelineno-10-24"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'products/:id'</span><span class="p">)</span>
+<a id="__codelineno-10-25" name="__codelineno-10-25"></a><span class="w">  </span><span class="nx">product</span><span class="p">(</span><span class="kd">@Param</span><span class="p">(</span><span class="s1">'id'</span><span class="p">)</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-26" name="__codelineno-10-26"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="sb">`Product no. </span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<a id="__codelineno-10-27" name="__codelineno-10-27"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-10-28" name="__codelineno-10-28"></a>
+<a id="__codelineno-10-29" name="__codelineno-10-29"></a><span class="w">  </span><span class="c1">// GET /first/products/17/reviews/3: twee routeparameters</span>
+<a id="__codelineno-10-30" name="__codelineno-10-30"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'products/:id/reviews/:number'</span><span class="p">)</span>
+<a id="__codelineno-10-31" name="__codelineno-10-31"></a><span class="w">  </span><span class="nx">review</span><span class="p">(</span><span class="kd">@Param</span><span class="p">()</span><span class="w"> </span><span class="nx">params</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="kt">number</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">})</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-32" name="__codelineno-10-32"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="sb">`Review no. </span><span class="si">${</span><span class="nx">params</span><span class="p">.</span><span class="kt">number</span><span class="si">}</span><span class="sb"> of product no. </span><span class="si">${</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<a id="__codelineno-10-33" name="__codelineno-10-33"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-10-34" name="__codelineno-10-34"></a>
+<a id="__codelineno-10-35" name="__codelineno-10-35"></a><span class="w">  </span><span class="c1">// GET /first/files/...: [*] accepteert elk einde van het pad</span>
+<a id="__codelineno-10-36" name="__codelineno-10-36"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'files/*'</span><span class="p">)</span>
+<a id="__codelineno-10-37" name="__codelineno-10-37"></a><span class="w">  </span><span class="nx">file</span><span class="p">(</span><span class="kd">@Param</span><span class="p">(</span><span class="s1">'0'</span><span class="p">)</span><span class="w"> </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-38" name="__codelineno-10-38"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="sb">`Requested file: </span><span class="si">${</span><span class="nx">path</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<a id="__codelineno-10-39" name="__codelineno-10-39"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-10-40" name="__codelineno-10-40"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>We lichten deze code toe:</p>
+<ul>
+<li>regel 3: <strong><em>[@Controller(&#x27;first&#x27;)]</em></strong> legt het <strong>voorvoegsel</strong> vast dat alle routes van de controller gemeen hebben: de acties ervan handelen URL-routes af die beginnen met <strong><em>[/first]</em></strong>;</li>
+<li>regel 6–7: <strong><em>[@Get()]</em></strong> zonder argumenten: de actie <strong><em>[index]</em></strong> handelt <strong><em>[GET /first]</em></strong> af;</li>
+<li>regel 12–13: de actie <strong><em>[action01]</em></strong> verwerkt <strong><em>[GET /first/action01]</em></strong>. De URL is de samenvoeging van het voorvoegsel van de controller en het pad van de actie;</li>
+<li>regel 18–19: hetzelfde <strong>pad</strong>, maar voor de methode POST: <strong><em>[@Post]</em></strong> vervangt <strong><em>[@Get]</em></strong>. Er zijn ook <strong><em>[@Put]</em></strong>, <strong><em>[@Delete]</em></strong>, <strong><em>[@Patch]</em></strong>, <strong><em>[@All]</em></strong>... De naam van de <em>[TypeScript]</em> -methode (<strong><em>[action01Post]</em></strong>) is willekeurig: voor de routing zijn alleen de decorators van belang;</li>
+<li>Regel 24–25: <strong><em>[:id]</em></strong> is een <strong>routeparameter</strong>: dit segment van de URL kan elke waarde aannemen. De decorator <strong><em>[@Param(&#x27;id&#x27;)]</em></strong> injecteert de waarde ervan in de parameter <strong><em>[id]</em></strong> van de actie. Deze waarde is <strong>altijd een tekenreeks</strong>: bij <strong><em>[/first/products/17]</em></strong> is <strong><em>[id]</em></strong> gelijk aan <strong><em>[&#x27;17&#x27;]</em></strong>, niet het getal 17;</li>
+<li>regel 30–31: twee routeparameters. <strong><em>[@Param()]</em></strong> zonder argument injecteert een object dat ze allemaal bevat: <strong><em>[{ id: &#x27;17&#x27;, number: &#x27;3&#x27; }]</em></strong>;</li>
+<li>regel 36–37: het teken <strong><em>[*]</em></strong> accepteert elk einde van een URL, ook <strong><em>[/]</em></strong>. Het overeenkomende deel is de parameter met de naam <strong><em>[0]</em></strong>.</li>
+</ul>
+<p>Bij het opstarten toont <em>[NestJS]</em> alle routes:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span>
+<span class="normal"><a href="#__codelineno-11-11">11</a></span>
+<span class="normal"><a href="#__codelineno-11-12">12</a></span>
+<span class="normal"><a href="#__codelineno-11-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>[Nest] 12690  - 09/23/2026, 4:02:10 PM     LOG [NestFactory] Starting Nest application...
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>[Nest] 12690  - 09/23/2026, 4:02:10 PM     LOG [InstanceLoader] AppModule dependencies initialized +17ms
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>[Nest] 12690  - 09/23/2026, 4:02:10 PM     LOG [RoutesResolver] AppController {/}: +8ms
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>[Nest] 12690  - 09/23/2026, 4:02:10 PM     LOG [RouterExplorer] Mapped {/, GET} route +7ms
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>[Nest] 12690  - 09/23/2026, 4:02:10 PM     LOG [RoutesResolver] FirstController {/first}: +0ms
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a>[Nest] 12690  - 09/23/2026, 4:02:10 PM     LOG [RouterExplorer] Mapped {/first, GET} route +1ms
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a>[Nest] 12690  - 09/23/2026, 4:02:10 PM     LOG [RouterExplorer] Mapped {/first/action01, GET} route +0ms
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a>[Nest] 12690  - 09/23/2026, 4:02:10 PM     LOG [RouterExplorer] Mapped {/first/action01, POST} route +1ms
+<a id="__codelineno-11-9" name="__codelineno-11-9"></a>[Nest] 12690  - 09/23/2026, 4:02:10 PM     LOG [RouterExplorer] Mapped {/first/products/:id, GET} route +0ms
+<a id="__codelineno-11-10" name="__codelineno-11-10"></a>[Nest] 12690  - 09/23/2026, 4:02:10 PM     LOG [RouterExplorer] Mapped {/first/products/:id/reviews/:number, GET} route +1ms
+<a id="__codelineno-11-11" name="__codelineno-11-11"></a>[Nest] 12690  - 09/23/2026, 4:02:10 PM     LOG [RouterExplorer] Mapped {/first/files/*, GET} route +1ms
+<a id="__codelineno-11-12" name="__codelineno-11-12"></a>[Nest] 12690  - 09/23/2026, 4:02:10 PM     LOG [NestApplication] Nest application successfully started +2ms
+<a id="__codelineno-11-13" name="__codelineno-11-13"></a>Server started on http://localhost:3000
+</code></pre></div></td></tr></table></div>
+<p>Hier volgen de antwoorden op enkele verzoeken:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>curl -i http://localhost:3000/first
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>Content-Type: text/html; charset=utf-8
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a>Content-Length: 40
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a>
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a>Action [index] of the [first] controller
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>curl -i http://localhost:3000/first/action01
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<span class="normal"><a href="#__codelineno-15-2">2</a></span>
+<span class="normal"><a href="#__codelineno-15-3">3</a></span>
+<span class="normal"><a href="#__codelineno-15-4">4</a></span>
+<span class="normal"><a href="#__codelineno-15-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>Content-Type: text/html; charset=utf-8
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a>Content-Length: 56
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a>Action [action01] of the [first] controller, GET request
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>curl -i http://localhost:3000/first/products/17
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span>
+<span class="normal"><a href="#__codelineno-17-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a>Content-Type: text/html; charset=utf-8
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a>Content-Length: 14
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a>
+<a id="__codelineno-17-5" name="__codelineno-17-5"></a>Product no. 17
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>curl -i http://localhost:3000/first/products/17/reviews/3
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
+<span class="normal"><a href="#__codelineno-19-2">2</a></span>
+<span class="normal"><a href="#__codelineno-19-3">3</a></span>
+<span class="normal"><a href="#__codelineno-19-4">4</a></span>
+<span class="normal"><a href="#__codelineno-19-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-19-2" name="__codelineno-19-2"></a>Content-Type: text/html; charset=utf-8
+<a id="__codelineno-19-3" name="__codelineno-19-3"></a>Content-Length: 30
+<a id="__codelineno-19-4" name="__codelineno-19-4"></a>
+<a id="__codelineno-19-5" name="__codelineno-19-5"></a>Review no. 3 of product no. 17
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>curl -i http://localhost:3000/first/files/images/logo.png
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span>
+<span class="normal"><a href="#__codelineno-21-2">2</a></span>
+<span class="normal"><a href="#__codelineno-21-3">3</a></span>
+<span class="normal"><a href="#__codelineno-21-4">4</a></span>
+<span class="normal"><a href="#__codelineno-21-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a>Content-Type: text/html; charset=utf-8
+<a id="__codelineno-21-3" name="__codelineno-21-3"></a>Content-Length: 31
+<a id="__codelineno-21-4" name="__codelineno-21-4"></a>
+<a id="__codelineno-21-5" name="__codelineno-21-5"></a>Requested file: images/logo.png
+</code></pre></div></td></tr></table></div>
+<p>Gebruik de optie <strong><em>[-X POST]</em></strong> van <em>[curl]</em> om een POST-verzoek te sturen:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>curl -i -X POST http://localhost:3000/first/action01
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span>
+<span class="normal"><a href="#__codelineno-23-3">3</a></span>
+<span class="normal"><a href="#__codelineno-23-4">4</a></span>
+<span class="normal"><a href="#__codelineno-23-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a>HTTP/1.1 201 Created
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a>Content-Type: text/html; charset=utf-8
+<a id="__codelineno-23-3" name="__codelineno-23-3"></a>Content-Length: 61
+<a id="__codelineno-23-4" name="__codelineno-23-4"></a>
+<a id="__codelineno-23-5" name="__codelineno-23-5"></a>Action [action01Post] of the [first] controller, POST request
+</code></pre></div></td></tr></table></div>
+<p>Let op de statuscode <strong>201 Created</strong>: dit is de code die <em>[NestJS]</em> standaard gebruikt om op een POST te antwoorden. We zien later hoe u die wijzigt. Een URL die door geen enkele route wordt afgehandeld, levert ten slotte een 404-fout op, die <em>[NestJS]</em> standaard als JSON weergeeft:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a>curl -i http://localhost:3000/unknown
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span>
+<span class="normal"><a href="#__codelineno-25-2">2</a></span>
+<span class="normal"><a href="#__codelineno-25-3">3</a></span>
+<span class="normal"><a href="#__codelineno-25-4">4</a></span>
+<span class="normal"><a href="#__codelineno-25-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a>HTTP/1.1 404 Not Found
+<a id="__codelineno-25-2" name="__codelineno-25-2"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-25-3" name="__codelineno-25-3"></a>Content-Length: 70
+<a id="__codelineno-25-4" name="__codelineno-25-4"></a>
+<a id="__codelineno-25-5" name="__codelineno-25-5"></a>{"message":"Cannot GET /unknown","error":"Not Found","statusCode":404}
+</code></pre></div></td></tr></table></div>
+<p><img src="images/10000000000002BE0000007AD5EAC697.png" width="428" height="74" style="width:11.322cm;height:1.969cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000002BE0000007AD5EAC697.png" /></p>
+<p>In Hoofdstuk 7 ziet u hoe u deze JSON vervangt door een HTML-pagina.</p>
+<h2 id="23-voorbeeld-03-antwoorden-van-een-actie">2.3. <span style="color: #2e74b5">Voorbeeld 03: antwoorden van een actie</span></h2>
+<p>Wat een actie teruggeeft, bepaalt het HTTP-antwoord. Voorbeeld 03 loopt de belangrijkste gevallen langs:</p>
+<p>Het bestand <strong><em>[src/responses.controller.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-26-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-26-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-26-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-26-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-26-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-26-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-26-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-26-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-26-10">10</a></span>
+<span class="normal"><a href="#__codelineno-26-11">11</a></span>
+<span class="normal"><a href="#__codelineno-26-12">12</a></span>
+<span class="normal"><a href="#__codelineno-26-13">13</a></span>
+<span class="normal"><a href="#__codelineno-26-14">14</a></span>
+<span class="normal"><a href="#__codelineno-26-15">15</a></span>
+<span class="normal"><a href="#__codelineno-26-16">16</a></span>
+<span class="normal"><a href="#__codelineno-26-17">17</a></span>
+<span class="normal"><a href="#__codelineno-26-18">18</a></span>
+<span class="normal"><a href="#__codelineno-26-19">19</a></span>
+<span class="normal"><a href="#__codelineno-26-20">20</a></span>
+<span class="normal"><a href="#__codelineno-26-21">21</a></span>
+<span class="normal"><a href="#__codelineno-26-22">22</a></span>
+<span class="normal"><a href="#__codelineno-26-23">23</a></span>
+<span class="normal"><a href="#__codelineno-26-24">24</a></span>
+<span class="normal"><a href="#__codelineno-26-25">25</a></span>
+<span class="normal"><a href="#__codelineno-26-26">26</a></span>
+<span class="normal"><a href="#__codelineno-26-27">27</a></span>
+<span class="normal"><a href="#__codelineno-26-28">28</a></span>
+<span class="normal"><a href="#__codelineno-26-29">29</a></span>
+<span class="normal"><a href="#__codelineno-26-30">30</a></span>
+<span class="normal"><a href="#__codelineno-26-31">31</a></span>
+<span class="normal"><a href="#__codelineno-26-32">32</a></span>
+<span class="normal"><a href="#__codelineno-26-33">33</a></span>
+<span class="normal"><a href="#__codelineno-26-34">34</a></span>
+<span class="normal"><a href="#__codelineno-26-35">35</a></span>
+<span class="normal"><a href="#__codelineno-26-36">36</a></span>
+<span class="normal"><a href="#__codelineno-26-37">37</a></span>
+<span class="normal"><a href="#__codelineno-26-38">38</a></span>
+<span class="normal"><a href="#__codelineno-26-39">39</a></span>
+<span class="normal"><a href="#__codelineno-26-40">40</a></span>
+<span class="normal"><a href="#__codelineno-26-41">41</a></span>
+<span class="normal"><a href="#__codelineno-26-42">42</a></span>
+<span class="normal"><a href="#__codelineno-26-43">43</a></span>
+<span class="normal"><a href="#__codelineno-26-44">44</a></span>
+<span class="normal"><a href="#__codelineno-26-45">45</a></span>
+<span class="normal"><a href="#__codelineno-26-46">46</a></span>
+<span class="normal"><a href="#__codelineno-26-47">47</a></span>
+<span class="normal"><a href="#__codelineno-26-48">48</a></span>
+<span class="normal"><a href="#__codelineno-26-49">49</a></span>
+<span class="normal"><a href="#__codelineno-26-50">50</a></span>
+<span class="normal"><a href="#__codelineno-26-51">51</a></span>
+<span class="normal"><a href="#__codelineno-26-52">52</a></span>
+<span class="normal"><a href="#__codelineno-26-53">53</a></span>
+<span class="normal"><a href="#__codelineno-26-54">54</a></span>
+<span class="normal"><a href="#__codelineno-26-55">55</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Controller</span><span class="p">,</span><span class="w"> </span><span class="nx">Get</span><span class="p">,</span><span class="w"> </span><span class="nx">Header</span><span class="p">,</span><span class="w"> </span><span class="nx">HttpCode</span><span class="p">,</span><span class="w"> </span><span class="nx">NotFoundException</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2"></a>
+<a id="__codelineno-26-3" name="__codelineno-26-3"></a><span class="kd">@Controller</span><span class="p">(</span><span class="s1">'responses'</span><span class="p">)</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ResponsesController</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5"></a><span class="w">  </span><span class="c1">// een string: ongewijzigd verzonden, met het type [text/html]</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'html'</span><span class="p">)</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7"></a><span class="w">  </span><span class="nx">html</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'&lt;h1&gt;Action [html]&lt;/h1&gt;'</span><span class="p">;</span>
+<a id="__codelineno-26-9" name="__codelineno-26-9"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-26-10" name="__codelineno-26-10"></a>
+<a id="__codelineno-26-11" name="__codelineno-26-11"></a><span class="w">  </span><span class="c1">// dezelfde string, maar aangekondigd als platte tekst</span>
+<a id="__codelineno-26-12" name="__codelineno-26-12"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'text'</span><span class="p">)</span>
+<a id="__codelineno-26-13" name="__codelineno-26-13"></a><span class="w">  </span><span class="kd">@Header</span><span class="p">(</span><span class="s1">'Content-Type'</span><span class="p">,</span><span class="w"> </span><span class="s1">'text/plain; charset=utf-8'</span><span class="p">)</span>
+<a id="__codelineno-26-14" name="__codelineno-26-14"></a><span class="w">  </span><span class="nx">text</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-26-15" name="__codelineno-26-15"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'&lt;h1&gt;Action [text]&lt;/h1&gt;'</span><span class="p">;</span>
+<a id="__codelineno-26-16" name="__codelineno-26-16"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-26-17" name="__codelineno-26-17"></a>
+<a id="__codelineno-26-18" name="__codelineno-26-18"></a><span class="w">  </span><span class="c1">// een object: geserialiseerd naar JSON, met het type [application/json]</span>
+<a id="__codelineno-26-19" name="__codelineno-26-19"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'json'</span><span class="p">)</span>
+<a id="__codelineno-26-20" name="__codelineno-26-20"></a><span class="w">  </span><span class="nx">json</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">object</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-26-21" name="__codelineno-26-21"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">lastName</span><span class="o">:</span><span class="w"> </span><span class="s1">'Martin'</span><span class="p">,</span><span class="w"> </span><span class="nx">firstName</span><span class="o">:</span><span class="w"> </span><span class="s1">'Jean'</span><span class="p">,</span><span class="w"> </span><span class="nx">age</span><span class="o">:</span><span class="w"> </span><span class="kt">42</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-26-22" name="__codelineno-26-22"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-26-23" name="__codelineno-26-23"></a>
+<a id="__codelineno-26-24" name="__codelineno-26-24"></a><span class="w">  </span><span class="c1">// een array: ook geserialiseerd naar JSON</span>
+<a id="__codelineno-26-25" name="__codelineno-26-25"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'array'</span><span class="p">)</span>
+<a id="__codelineno-26-26" name="__codelineno-26-26"></a><span class="w">  </span><span class="nx">array</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-26-27" name="__codelineno-26-27"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[</span><span class="s1">'Mme'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Mlle'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Mr'</span><span class="p">];</span>
+<a id="__codelineno-26-28" name="__codelineno-26-28"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-26-29" name="__codelineno-26-29"></a>
+<a id="__codelineno-26-30" name="__codelineno-26-30"></a><span class="w">  </span><span class="c1">// een gekozen statuscode: 201 (Created) in plaats van 200 (OK)</span>
+<a id="__codelineno-26-31" name="__codelineno-26-31"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'created'</span><span class="p">)</span>
+<a id="__codelineno-26-32" name="__codelineno-26-32"></a><span class="w">  </span><span class="kd">@HttpCode</span><span class="p">(</span><span class="mf">201</span><span class="p">)</span>
+<a id="__codelineno-26-33" name="__codelineno-26-33"></a><span class="w">  </span><span class="nx">created</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">object</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-26-34" name="__codelineno-26-34"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">'resource created'</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-26-35" name="__codelineno-26-35"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-26-36" name="__codelineno-26-36"></a>
+<a id="__codelineno-26-37" name="__codelineno-26-37"></a><span class="w">  </span><span class="c1">// geen antwoord: de code 204 (No Content) betekent "niets weer te geven"</span>
+<a id="__codelineno-26-38" name="__codelineno-26-38"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'empty'</span><span class="p">)</span>
+<a id="__codelineno-26-39" name="__codelineno-26-39"></a><span class="w">  </span><span class="kd">@HttpCode</span><span class="p">(</span><span class="mf">204</span><span class="p">)</span>
+<a id="__codelineno-26-40" name="__codelineno-26-40"></a><span class="w">  </span><span class="nx">empty</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-26-41" name="__codelineno-26-41"></a>
+<a id="__codelineno-26-42" name="__codelineno-26-42"></a><span class="w">  </span><span class="c1">// een asynchrone methode: NestJS wacht tot de promise is afgehandeld</span>
+<a id="__codelineno-26-43" name="__codelineno-26-43"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'promise'</span><span class="p">)</span>
+<a id="__codelineno-26-44" name="__codelineno-26-44"></a><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">promise</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">object</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-26-45" name="__codelineno-26-45"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+<a id="__codelineno-26-46" name="__codelineno-26-46"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">done</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">done</span><span class="p">,</span><span class="w"> </span><span class="mf">500</span><span class="p">));</span>
+<a id="__codelineno-26-47" name="__codelineno-26-47"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">wait</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">start</span><span class="si">}</span><span class="sb"> ms`</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-26-48" name="__codelineno-26-48"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-26-49" name="__codelineno-26-49"></a>
+<a id="__codelineno-26-50" name="__codelineno-26-50"></a><span class="w">  </span><span class="c1">// een exception: NestJS zet die om in een foutantwoord</span>
+<a id="__codelineno-26-51" name="__codelineno-26-51"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'error'</span><span class="p">)</span>
+<a id="__codelineno-26-52" name="__codelineno-26-52"></a><span class="w">  </span><span class="nx">error</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-26-53" name="__codelineno-26-53"></a><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">NotFoundException</span><span class="p">(</span><span class="s1">'This resource does not exist'</span><span class="p">);</span>
+<a id="__codelineno-26-54" name="__codelineno-26-54"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-26-55" name="__codelineno-26-55"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>We lichten deze code toe:</p>
+<ul>
+<li>regel 6–9: een <strong>tekenreeks</strong> wordt ongewijzigd verzonden, met de header <strong><em>[Content-Type: text/html; charset=utf-8]</em></strong>;</li>
+<li>regel 12–16: de decorator <strong><em>[@Header]</em></strong> stelt een header van het antwoord in. Als de tekenreeks als platte tekst wordt gedeclareerd (<strong><em>[text/plain]</em></strong>), wordt ze door de browser niet meer geïnterpreteerd;</li>
+<li>regel 19–22: een <strong>object</strong> wordt <strong>als JSON geserialiseerd</strong>, met de header <strong><em>[Content-Type: application/json]</em></strong>;</li>
+<li>regel 25–28: ook een array wordt als JSON geserialiseerd;</li>
+<li>regel 31–35: <strong><em>[@HttpCode(201)]</em></strong> wijzigt de statuscode van het antwoord (standaard 200 bij een GET);</li>
+<li>regel 38–40: de code 204 (<strong>No Content</strong>) betekent “geen inhoud”: de actie geeft niets terug;</li>
+<li>regel 43–48: een actie kan <strong>asynchroon</strong> (<strong><em>[async]</em></strong>) zijn: in dat geval geeft ze een promise (<strong><em>[Promise]</em></strong>) terug en wacht <em>[NestJS]</em> tot die is afgehandeld voordat het antwoordt. Dit geldt voor alle acties die een database raadplegen;</li>
+<li>Regel 51–54: een actie kan een <strong>exception</strong> veroorzaken. De exceptions van <em>[NestJS]</em> (<strong><em>[NotFoundException]</em></strong>, <strong><em>[BadRequestException]</em></strong>, <strong><em>[ForbiddenException]</em></strong>...) bevatten elk een HTTP-statuscode (hier 404), die <em>[NestJS]</em> voor zijn antwoord gebruikt.</li>
+</ul>
+<p>De ontvangen antwoorden:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a>curl -i http://localhost:3000/responses/html
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
+<span class="normal"><a href="#__codelineno-28-2">2</a></span>
+<span class="normal"><a href="#__codelineno-28-3">3</a></span>
+<span class="normal"><a href="#__codelineno-28-4">4</a></span>
+<span class="normal"><a href="#__codelineno-28-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-28-2" name="__codelineno-28-2"></a>Content-Type: text/html; charset=utf-8
+<a id="__codelineno-28-3" name="__codelineno-28-3"></a>Content-Length: 22
+<a id="__codelineno-28-4" name="__codelineno-28-4"></a>
+<a id="__codelineno-28-5" name="__codelineno-28-5"></a>&lt;h1&gt;Action [html]&lt;/h1&gt;
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a>curl -i http://localhost:3000/responses/text
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1">1</a></span>
+<span class="normal"><a href="#__codelineno-30-2">2</a></span>
+<span class="normal"><a href="#__codelineno-30-3">3</a></span>
+<span class="normal"><a href="#__codelineno-30-4">4</a></span>
+<span class="normal"><a href="#__codelineno-30-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-30-2" name="__codelineno-30-2"></a>Content-Type: text/plain; charset=utf-8
+<a id="__codelineno-30-3" name="__codelineno-30-3"></a>Content-Length: 22
+<a id="__codelineno-30-4" name="__codelineno-30-4"></a>
+<a id="__codelineno-30-5" name="__codelineno-30-5"></a>&lt;h1&gt;Action [text]&lt;/h1&gt;
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1"></a>curl -i http://localhost:3000/responses/json
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1">1</a></span>
+<span class="normal"><a href="#__codelineno-32-2">2</a></span>
+<span class="normal"><a href="#__codelineno-32-3">3</a></span>
+<span class="normal"><a href="#__codelineno-32-4">4</a></span>
+<span class="normal"><a href="#__codelineno-32-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-32-2" name="__codelineno-32-2"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-32-3" name="__codelineno-32-3"></a>Content-Length: 49
+<a id="__codelineno-32-4" name="__codelineno-32-4"></a>
+<a id="__codelineno-32-5" name="__codelineno-32-5"></a>{"lastName":"Martin","firstName":"Jean","age":42}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-33-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1"></a>curl -i http://localhost:3000/responses/array
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-34-1">1</a></span>
+<span class="normal"><a href="#__codelineno-34-2">2</a></span>
+<span class="normal"><a href="#__codelineno-34-3">3</a></span>
+<span class="normal"><a href="#__codelineno-34-4">4</a></span>
+<span class="normal"><a href="#__codelineno-34-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-34-2" name="__codelineno-34-2"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-34-3" name="__codelineno-34-3"></a>Content-Length: 19
+<a id="__codelineno-34-4" name="__codelineno-34-4"></a>
+<a id="__codelineno-34-5" name="__codelineno-34-5"></a>["Mme","Mlle","Mr"]
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-35-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1"></a>curl -i http://localhost:3000/responses/created
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-36-1">1</a></span>
+<span class="normal"><a href="#__codelineno-36-2">2</a></span>
+<span class="normal"><a href="#__codelineno-36-3">3</a></span>
+<span class="normal"><a href="#__codelineno-36-4">4</a></span>
+<span class="normal"><a href="#__codelineno-36-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1"></a>HTTP/1.1 201 Created
+<a id="__codelineno-36-2" name="__codelineno-36-2"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-36-3" name="__codelineno-36-3"></a>Content-Length: 30
+<a id="__codelineno-36-4" name="__codelineno-36-4"></a>
+<a id="__codelineno-36-5" name="__codelineno-36-5"></a>{"message":"resource created"}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-37-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1"></a>curl -i http://localhost:3000/responses/empty
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-38-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1"></a>HTTP/1.1 204 No Content
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-39-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1"></a>curl -i http://localhost:3000/responses/promise
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-40-1">1</a></span>
+<span class="normal"><a href="#__codelineno-40-2">2</a></span>
+<span class="normal"><a href="#__codelineno-40-3">3</a></span>
+<span class="normal"><a href="#__codelineno-40-4">4</a></span>
+<span class="normal"><a href="#__codelineno-40-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-40-2" name="__codelineno-40-2"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-40-3" name="__codelineno-40-3"></a>Content-Length: 17
+<a id="__codelineno-40-4" name="__codelineno-40-4"></a>
+<a id="__codelineno-40-5" name="__codelineno-40-5"></a>{"wait":"501 ms"}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-41-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1"></a>curl -i http://localhost:3000/responses/error
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-42-1">1</a></span>
+<span class="normal"><a href="#__codelineno-42-2">2</a></span>
+<span class="normal"><a href="#__codelineno-42-3">3</a></span>
+<span class="normal"><a href="#__codelineno-42-4">4</a></span>
+<span class="normal"><a href="#__codelineno-42-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1"></a>HTTP/1.1 404 Not Found
+<a id="__codelineno-42-2" name="__codelineno-42-2"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-42-3" name="__codelineno-42-3"></a>Content-Length: 79
+<a id="__codelineno-42-4" name="__codelineno-42-4"></a>
+<a id="__codelineno-42-5" name="__codelineno-42-5"></a>{"message":"This resource does not exist","error":"Not Found","statusCode":404}
+</code></pre></div></td></tr></table></div>
+<p>In een browser is het verschil tussen <strong><em>[text/html]</em></strong> en <strong><em>[text/plain]</em></strong> zichtbaar:</p>
+<p><img src="images/10000000000002BE0000008E9B75EEAE.png" width="428" height="87" style="width:11.322cm;height:2.29cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000002BE0000008E9B75EEAE.png" /></p>
+<p><img src="images/10000000000002BE0000007A3143258F.png" width="428" height="74" style="width:11.322cm;height:1.969cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000002BE0000007A3143258F.png" /></p>
+<h2 id="24-voorbeeld-04-omleidingen">2.4. <span style="color: #2e74b5">Voorbeeld 04: omleidingen</span></h2>
+<p>Een actie kan antwoorden met een <strong>omleiding</strong>: een statuscode 301 of 302 en een header <strong><em>[Location]</em></strong> die de browser vertelt welke URL hij vervolgens moet opvragen. De browser vraagt die onmiddellijk op, zonder tussenkomst van de gebruiker. Omleidingen komen overal voor in een webapplicatie: na het succesvol verzenden van een formulier, na het inloggen, na het wijzigen van de taal...</p>
+<p>Het bestand <strong><em>[src/redirects.controller.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-43-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-43-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-43-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-43-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-43-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-43-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-43-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-43-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-43-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-43-10">10</a></span>
+<span class="normal"><a href="#__codelineno-43-11">11</a></span>
+<span class="normal"><a href="#__codelineno-43-12">12</a></span>
+<span class="normal"><a href="#__codelineno-43-13">13</a></span>
+<span class="normal"><a href="#__codelineno-43-14">14</a></span>
+<span class="normal"><a href="#__codelineno-43-15">15</a></span>
+<span class="normal"><a href="#__codelineno-43-16">16</a></span>
+<span class="normal"><a href="#__codelineno-43-17">17</a></span>
+<span class="normal"><a href="#__codelineno-43-18">18</a></span>
+<span class="normal"><a href="#__codelineno-43-19">19</a></span>
+<span class="normal"><a href="#__codelineno-43-20">20</a></span>
+<span class="normal"><a href="#__codelineno-43-21">21</a></span>
+<span class="normal"><a href="#__codelineno-43-22">22</a></span>
+<span class="normal"><a href="#__codelineno-43-23">23</a></span>
+<span class="normal"><a href="#__codelineno-43-24">24</a></span>
+<span class="normal"><a href="#__codelineno-43-25">25</a></span>
+<span class="normal"><a href="#__codelineno-43-26">26</a></span>
+<span class="normal"><a href="#__codelineno-43-27">27</a></span>
+<span class="normal"><a href="#__codelineno-43-28">28</a></span>
+<span class="normal"><a href="#__codelineno-43-29">29</a></span>
+<span class="normal"><a href="#__codelineno-43-30">30</a></span>
+<span class="normal"><a href="#__codelineno-43-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Controller</span><span class="p">,</span><span class="w"> </span><span class="nx">Get</span><span class="p">,</span><span class="w"> </span><span class="nx">Param</span><span class="p">,</span><span class="w"> </span><span class="nx">Redirect</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-43-2" name="__codelineno-43-2"></a>
+<a id="__codelineno-43-3" name="__codelineno-43-3"></a><span class="kd">@Controller</span><span class="p">()</span>
+<a id="__codelineno-43-4" name="__codelineno-43-4"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">RedirectsController</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-43-5" name="__codelineno-43-5"></a><span class="w">  </span><span class="c1">// vaste redirect: het adres en de code zijn vooraf bekend</span>
+<a id="__codelineno-43-6" name="__codelineno-43-6"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'old'</span><span class="p">)</span>
+<a id="__codelineno-43-7" name="__codelineno-43-7"></a><span class="w">  </span><span class="kd">@Redirect</span><span class="p">(</span><span class="s1">'/new'</span><span class="p">,</span><span class="w"> </span><span class="mf">301</span><span class="p">)</span>
+<a id="__codelineno-43-8" name="__codelineno-43-8"></a><span class="w">  </span><span class="nx">oldPage</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-43-9" name="__codelineno-43-9"></a>
+<a id="__codelineno-43-10" name="__codelineno-43-10"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'new'</span><span class="p">)</span>
+<a id="__codelineno-43-11" name="__codelineno-43-11"></a><span class="w">  </span><span class="nx">newPage</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-43-12" name="__codelineno-43-12"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'You are on the [new] page'</span><span class="p">;</span>
+<a id="__codelineno-43-13" name="__codelineno-43-13"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-43-14" name="__codelineno-43-14"></a>
+<a id="__codelineno-43-15" name="__codelineno-43-15"></a><span class="w">  </span><span class="c1">// berekende redirect: het geretourneerde object vervangt het adres van @Redirect()</span>
+<a id="__codelineno-43-16" name="__codelineno-43-16"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'go/:destination'</span><span class="p">)</span>
+<a id="__codelineno-43-17" name="__codelineno-43-17"></a><span class="w">  </span><span class="kd">@Redirect</span><span class="p">()</span>
+<a id="__codelineno-43-18" name="__codelineno-43-18"></a><span class="w">  </span><span class="nx">go</span><span class="p">(</span><span class="kd">@Param</span><span class="p">(</span><span class="s1">'destination'</span><span class="p">)</span><span class="w"> </span><span class="nx">destination</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-43-19" name="__codelineno-43-19"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="sb">`/page/</span><span class="si">${</span><span class="nx">destination</span><span class="si">}</span><span class="sb">`</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-43-20" name="__codelineno-43-20"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-43-21" name="__codelineno-43-21"></a>
+<a id="__codelineno-43-22" name="__codelineno-43-22"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'page/:name'</span><span class="p">)</span>
+<a id="__codelineno-43-23" name="__codelineno-43-23"></a><span class="w">  </span><span class="nx">page</span><span class="p">(</span><span class="kd">@Param</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-43-24" name="__codelineno-43-24"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="sb">`You are on the [</span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">] page`</span><span class="p">;</span>
+<a id="__codelineno-43-25" name="__codelineno-43-25"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-43-26" name="__codelineno-43-26"></a>
+<a id="__codelineno-43-27" name="__codelineno-43-27"></a><span class="w">  </span><span class="c1">// redirect naar een andere site</span>
+<a id="__codelineno-43-28" name="__codelineno-43-28"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'documentation'</span><span class="p">)</span>
+<a id="__codelineno-43-29" name="__codelineno-43-29"></a><span class="w">  </span><span class="kd">@Redirect</span><span class="p">(</span><span class="s1">'https://docs.nestjs.com'</span><span class="p">)</span>
+<a id="__codelineno-43-30" name="__codelineno-43-30"></a><span class="w">  </span><span class="nx">documentation</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-43-31" name="__codelineno-43-31"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>We lichten deze code toe:</p>
+<ul>
+<li>regel 6–8: <strong><em>[@Redirect(&#x27;/new&#x27;, 301)]</em></strong>: een <strong>permanente</strong> omleiding. De code 301 (<strong>Moved Permanently</strong>) geeft aan dat het adres van de pagina definitief is gewijzigd; de standaardcode is 302 (<strong>Found</strong>), een tijdelijke omleiding;</li>
+<li>regel 16–20: een <strong>berekende</strong> omleiding: <strong><em>[@Redirect()]</em></strong> zonder argument, waarbij de actie een object <strong><em>[{ url: ... }]</em></strong> teruggeeft dat het doeladres bepaalt;</li>
+<li>regel 28–30: u kunt ook omleiden naar een andere site.</li>
+</ul>
+<p><em>[curl]</em> toont de omleiding zonder deze te volgen:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-44-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1"></a>curl -i http://localhost:3000/old
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-45-1">1</a></span>
+<span class="normal"><a href="#__codelineno-45-2">2</a></span>
+<span class="normal"><a href="#__codelineno-45-3">3</a></span>
+<span class="normal"><a href="#__codelineno-45-4">4</a></span>
+<span class="normal"><a href="#__codelineno-45-5">5</a></span>
+<span class="normal"><a href="#__codelineno-45-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1"></a>HTTP/1.1 301 Moved Permanently
+<a id="__codelineno-45-2" name="__codelineno-45-2"></a>Location: /new
+<a id="__codelineno-45-3" name="__codelineno-45-3"></a>Content-Type: text/plain; charset=utf-8
+<a id="__codelineno-45-4" name="__codelineno-45-4"></a>Content-Length: 38
+<a id="__codelineno-45-5" name="__codelineno-45-5"></a>
+<a id="__codelineno-45-6" name="__codelineno-45-6"></a>Moved Permanently. Redirecting to /new
+</code></pre></div></td></tr></table></div>
+<p>Met de optie <strong><em>[-L]</em></strong> volgt <em>[curl]</em> de omleiding, net zoals een browser dat doet. We zien dan de twee opeenvolgende antwoorden:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-46-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1"></a>curl -i -L http://localhost:3000/old
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-47-1">1</a></span>
+<span class="normal"><a href="#__codelineno-47-2">2</a></span>
+<span class="normal"><a href="#__codelineno-47-3">3</a></span>
+<span class="normal"><a href="#__codelineno-47-4">4</a></span>
+<span class="normal"><a href="#__codelineno-47-5">5</a></span>
+<span class="normal"><a href="#__codelineno-47-6">6</a></span>
+<span class="normal"><a href="#__codelineno-47-7">7</a></span>
+<span class="normal"><a href="#__codelineno-47-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1"></a>HTTP/1.1 301 Moved Permanently
+<a id="__codelineno-47-2" name="__codelineno-47-2"></a>Location: /new
+<a id="__codelineno-47-3" name="__codelineno-47-3"></a>Content-Type: text/plain; charset=utf-8
+<a id="__codelineno-47-4" name="__codelineno-47-4"></a>
+<a id="__codelineno-47-5" name="__codelineno-47-5"></a>HTTP/1.1 200 OK
+<a id="__codelineno-47-6" name="__codelineno-47-6"></a>Content-Type: text/html; charset=utf-8
+<a id="__codelineno-47-7" name="__codelineno-47-7"></a>
+<a id="__codelineno-47-8" name="__codelineno-47-8"></a>You are on the [new] page
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-48-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1"></a>curl -i http://localhost:3000/go/contact
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-49-1">1</a></span>
+<span class="normal"><a href="#__codelineno-49-2">2</a></span>
+<span class="normal"><a href="#__codelineno-49-3">3</a></span>
+<span class="normal"><a href="#__codelineno-49-4">4</a></span>
+<span class="normal"><a href="#__codelineno-49-5">5</a></span>
+<span class="normal"><a href="#__codelineno-49-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1"></a>HTTP/1.1 302 Found
+<a id="__codelineno-49-2" name="__codelineno-49-2"></a>Location: /page/contact
+<a id="__codelineno-49-3" name="__codelineno-49-3"></a>Content-Type: text/plain; charset=utf-8
+<a id="__codelineno-49-4" name="__codelineno-49-4"></a>Content-Length: 35
+<a id="__codelineno-49-5" name="__codelineno-49-5"></a>
+<a id="__codelineno-49-6" name="__codelineno-49-6"></a>Found. Redirecting to /page/contact
+</code></pre></div></td></tr></table></div>
+<p>In de browser is alleen de uiteindelijke pagina zichtbaar; de adresbalk toont de nieuwe URL:</p>
+<p><img src="images/10000000000002BE0000007A6C51ECEE.png" width="428" height="74" style="width:11.322cm;height:1.969cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000002BE0000007A6C51ECEE.png" /></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-50-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1"></a>curl -i http://localhost:3000/documentation
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-51-1">1</a></span>
+<span class="normal"><a href="#__codelineno-51-2">2</a></span>
+<span class="normal"><a href="#__codelineno-51-3">3</a></span>
+<span class="normal"><a href="#__codelineno-51-4">4</a></span>
+<span class="normal"><a href="#__codelineno-51-5">5</a></span>
+<span class="normal"><a href="#__codelineno-51-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1"></a>HTTP/1.1 302 Found
+<a id="__codelineno-51-2" name="__codelineno-51-2"></a>Location: https://docs.nestjs.com
+<a id="__codelineno-51-3" name="__codelineno-51-3"></a>Content-Type: text/plain; charset=utf-8
+<a id="__codelineno-51-4" name="__codelineno-51-4"></a>Content-Length: 45
+<a id="__codelineno-51-5" name="__codelineno-51-5"></a>
+<a id="__codelineno-51-6" name="__codelineno-51-6"></a>Found. Redirecting to https://docs.nestjs.com
+</code></pre></div></td></tr></table></div>
+<h2 id="25-voorbeeld-05-de-objecten-request-en-response-in-express">2.5. <span style="color: #2e74b5">Voorbeeld 05: de objecten Request en Response in Express</span></h2>
+<p><em>[NestJS]</em> maakt gebruik van de webserver <em>[Express]</em>. Een actie heeft rechtstreeks toegang tot de <strong><em>[Request]</em></strong>- en <strong><em>[Response]</em></strong>-objecten <em>van [Express]</em>. Dat is soms nodig, en we doen het in de casus (bijvoorbeeld om een cookie in te stellen), maar u moet weten wat u daarmee opgeeft.</p>
+<p>Het bestand <strong><em>[src/express.controller.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-52-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-52-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-52-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-52-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-52-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-52-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-52-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-52-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-52-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-52-10">10</a></span>
+<span class="normal"><a href="#__codelineno-52-11">11</a></span>
+<span class="normal"><a href="#__codelineno-52-12">12</a></span>
+<span class="normal"><a href="#__codelineno-52-13">13</a></span>
+<span class="normal"><a href="#__codelineno-52-14">14</a></span>
+<span class="normal"><a href="#__codelineno-52-15">15</a></span>
+<span class="normal"><a href="#__codelineno-52-16">16</a></span>
+<span class="normal"><a href="#__codelineno-52-17">17</a></span>
+<span class="normal"><a href="#__codelineno-52-18">18</a></span>
+<span class="normal"><a href="#__codelineno-52-19">19</a></span>
+<span class="normal"><a href="#__codelineno-52-20">20</a></span>
+<span class="normal"><a href="#__codelineno-52-21">21</a></span>
+<span class="normal"><a href="#__codelineno-52-22">22</a></span>
+<span class="normal"><a href="#__codelineno-52-23">23</a></span>
+<span class="normal"><a href="#__codelineno-52-24">24</a></span>
+<span class="normal"><a href="#__codelineno-52-25">25</a></span>
+<span class="normal"><a href="#__codelineno-52-26">26</a></span>
+<span class="normal"><a href="#__codelineno-52-27">27</a></span>
+<span class="normal"><a href="#__codelineno-52-28">28</a></span>
+<span class="normal"><a href="#__codelineno-52-29">29</a></span>
+<span class="normal"><a href="#__codelineno-52-30">30</a></span>
+<span class="normal"><a href="#__codelineno-52-31">31</a></span>
+<span class="normal"><a href="#__codelineno-52-32">32</a></span>
+<span class="normal"><a href="#__codelineno-52-33">33</a></span>
+<span class="normal"><a href="#__codelineno-52-34">34</a></span>
+<span class="normal"><a href="#__codelineno-52-35">35</a></span>
+<span class="normal"><a href="#__codelineno-52-36">36</a></span>
+<span class="normal"><a href="#__codelineno-52-37">37</a></span>
+<span class="normal"><a href="#__codelineno-52-38">38</a></span>
+<span class="normal"><a href="#__codelineno-52-39">39</a></span>
+<span class="normal"><a href="#__codelineno-52-40">40</a></span>
+<span class="normal"><a href="#__codelineno-52-41">41</a></span>
+<span class="normal"><a href="#__codelineno-52-42">42</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Controller</span><span class="p">,</span><span class="w"> </span><span class="nx">Get</span><span class="p">,</span><span class="w"> </span><span class="nx">Req</span><span class="p">,</span><span class="w"> </span><span class="nx">Res</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-52-2" name="__codelineno-52-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Request</span><span class="p">,</span><span class="w"> </span><span class="nx">Response</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'express'</span><span class="p">;</span>
+<a id="__codelineno-52-3" name="__codelineno-52-3"></a>
+<a id="__codelineno-52-4" name="__codelineno-52-4"></a><span class="kd">@Controller</span><span class="p">(</span><span class="s1">'express'</span><span class="p">)</span>
+<a id="__codelineno-52-5" name="__codelineno-52-5"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ExpressController</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-52-6" name="__codelineno-52-6"></a><span class="w">  </span><span class="c1">// het Express-verzoek: methode, URL, headers...</span>
+<a id="__codelineno-52-7" name="__codelineno-52-7"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'request'</span><span class="p">)</span>
+<a id="__codelineno-52-8" name="__codelineno-52-8"></a><span class="w">  </span><span class="nx">request</span><span class="p">(</span><span class="kd">@Req</span><span class="p">()</span><span class="w"> </span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">Request</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">object</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-52-9" name="__codelineno-52-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-52-10" name="__codelineno-52-10"></a><span class="w">      </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="kt">req.method</span><span class="p">,</span>
+<a id="__codelineno-52-11" name="__codelineno-52-11"></a><span class="w">      </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="kt">req.url</span><span class="p">,</span>
+<a id="__codelineno-52-12" name="__codelineno-52-12"></a><span class="w">      </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="kt">req.path</span><span class="p">,</span>
+<a id="__codelineno-52-13" name="__codelineno-52-13"></a><span class="w">      </span><span class="nx">browser</span><span class="o">:</span><span class="w"> </span><span class="kt">req.get</span><span class="p">(</span><span class="s1">'user-agent'</span><span class="p">),</span>
+<a id="__codelineno-52-14" name="__codelineno-52-14"></a><span class="w">    </span><span class="p">};</span>
+<a id="__codelineno-52-15" name="__codelineno-52-15"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-52-16" name="__codelineno-52-16"></a>
+<a id="__codelineno-52-17" name="__codelineno-52-17"></a><span class="w">  </span><span class="c1">// het Express-antwoord: de actie verstuurt het antwoord zelf</span>
+<a id="__codelineno-52-18" name="__codelineno-52-18"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'response'</span><span class="p">)</span>
+<a id="__codelineno-52-19" name="__codelineno-52-19"></a><span class="w">  </span><span class="nx">response</span><span class="p">(</span><span class="kd">@Res</span><span class="p">()</span><span class="w"> </span><span class="nx">res</span><span class="o">:</span><span class="w"> </span><span class="kt">Response</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-52-20" name="__codelineno-52-20"></a><span class="w">    </span><span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mf">200</span><span class="p">).</span><span class="kr">type</span><span class="p">(</span><span class="s1">'text/plain'</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s1">'Response sent by [res.send]'</span><span class="p">);</span>
+<a id="__codelineno-52-21" name="__codelineno-52-21"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-52-22" name="__codelineno-52-22"></a>
+<a id="__codelineno-52-23" name="__codelineno-52-23"></a><span class="w">  </span><span class="c1">// redirect met het Express-antwoord</span>
+<a id="__codelineno-52-24" name="__codelineno-52-24"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'redirect'</span><span class="p">)</span>
+<a id="__codelineno-52-25" name="__codelineno-52-25"></a><span class="w">  </span><span class="nx">redirect</span><span class="p">(</span><span class="kd">@Res</span><span class="p">()</span><span class="w"> </span><span class="nx">res</span><span class="o">:</span><span class="w"> </span><span class="kt">Response</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-52-26" name="__codelineno-52-26"></a><span class="w">    </span><span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">'/express/response'</span><span class="p">);</span>
+<a id="__codelineno-52-27" name="__codelineno-52-27"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-52-28" name="__codelineno-52-28"></a>
+<a id="__codelineno-52-29" name="__codelineno-52-29"></a><span class="w">  </span><span class="c1">// passthrough: we gebruiken het antwoord (hier voor een header), maar NestJS</span>
+<a id="__codelineno-52-30" name="__codelineno-52-30"></a><span class="w">  </span><span class="c1">// verstuurt de door de actie geretourneerde waarde nog steeds zelf</span>
+<a id="__codelineno-52-31" name="__codelineno-52-31"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'passthrough'</span><span class="p">)</span>
+<a id="__codelineno-52-32" name="__codelineno-52-32"></a><span class="w">  </span><span class="nx">passthrough</span><span class="p">(</span><span class="kd">@Res</span><span class="p">({</span><span class="w"> </span><span class="nx">passthrough</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="nx">res</span><span class="o">:</span><span class="w"> </span><span class="kt">Response</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-52-33" name="__codelineno-52-33"></a><span class="w">    </span><span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'X-Example'</span><span class="p">,</span><span class="w"> </span><span class="s1">'05-express'</span><span class="p">);</span>
+<a id="__codelineno-52-34" name="__codelineno-52-34"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'Response sent by NestJS, with an added header'</span><span class="p">;</span>
+<a id="__codelineno-52-35" name="__codelineno-52-35"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-52-36" name="__codelineno-52-36"></a>
+<a id="__codelineno-52-37" name="__codelineno-52-37"></a><span class="w">  </span><span class="c1">// FOUT om te vermijden: @Res() zonder passthrough, en er wordt niets verstuurd</span>
+<a id="__codelineno-52-38" name="__codelineno-52-38"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'blocked'</span><span class="p">)</span>
+<a id="__codelineno-52-39" name="__codelineno-52-39"></a><span class="w">  </span><span class="nx">blocked</span><span class="p">(</span><span class="kd">@Res</span><span class="p">()</span><span class="w"> </span><span class="nx">res</span><span class="o">:</span><span class="w"> </span><span class="kt">Response</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-52-40" name="__codelineno-52-40"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'This string will never be sent: the browser keeps waiting...'</span><span class="p">;</span>
+<a id="__codelineno-52-41" name="__codelineno-52-41"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-52-42" name="__codelineno-52-42"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>We lichten deze code toe:</p>
+<ul>
+<li>regel 2: de <strong>typen</strong> <strong><em>[Request]</em></strong> en <strong><em>[Response]</em></strong> van <em>[Express]</em>;</li>
+<li>Regel 7–15: <strong><em>[@Req()]</em></strong> injecteert het verzoek van <em>[Express]</em>: HTTP-methode, URL, pad, headers (<strong><em>[req.get(...)]</em></strong>)... ;</li>
+<li>regel 18–21: <strong><em>[@Res()]</em></strong> injecteert het antwoord van <em>[Express]</em>. <strong>Let op</strong>: zodra een actie <strong><em>[@Res()]</em></strong> gebruikt, <em>[NestJS]</em> gaat het ervan uit dat die actie het antwoord verstuurt, en negeert het wat ze teruggeeft. Hier stelt de actie de statuscode en het type in en verstuurt ze de body met <strong><em>[res.send]</em></strong>;</li>
+<li>regel 24–27: een 302-omleiding die door <em>[Express]</em> wordt uitgevoerd met <strong><em>[res.redirect(url)]</em></strong>;</li>
+<li>regel 31–35: met de optie <strong><em>[passthrough: true]</em></strong> gebruikt de actie het antwoord (hier om een header toe te voegen), maar laat ze <em>[NestJS]</em> verzenden wat ze teruggeeft. Zo combineert u het beste van twee werelden;</li>
+<li>regel 38–41: <strong>de fout die u moet vermijden</strong>: <strong><em>[@Res()]</em></strong> zonder <strong><em>[passthrough]</em></strong> en zonder aanroepen van <strong><em>[res.send]</em></strong>, <strong><em>[res.redirect]</em></strong> of <strong><em>[res.render]</em></strong>.... De teruggegeven tekenreeks wordt genegeerd, er wordt nooit een antwoord verzonden en de browser wacht eindeloos.</li>
+</ul>
+<p>Ontvangen antwoorden:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-53-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1"></a>curl -i -A "Mozilla/5.0 (example)" http://localhost:3000/express/request
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-54-1">1</a></span>
+<span class="normal"><a href="#__codelineno-54-2">2</a></span>
+<span class="normal"><a href="#__codelineno-54-3">3</a></span>
+<span class="normal"><a href="#__codelineno-54-4">4</a></span>
+<span class="normal"><a href="#__codelineno-54-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-54-2" name="__codelineno-54-2"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-54-3" name="__codelineno-54-3"></a>Content-Length: 101
+<a id="__codelineno-54-4" name="__codelineno-54-4"></a>
+<a id="__codelineno-54-5" name="__codelineno-54-5"></a>{"method":"GET","url":"/express/request","path":"/express/request","browser":"Mozilla/5.0 (example)"}
+</code></pre></div></td></tr></table></div>
+<p>(de optie <strong><em>[-A]</em></strong> van <em>[curl]</em> stelt de header <strong><em>[User-Agent]</em></strong> in, die de browser identificeert)</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-55-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1"></a>curl -i http://localhost:3000/express/response
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-56-1">1</a></span>
+<span class="normal"><a href="#__codelineno-56-2">2</a></span>
+<span class="normal"><a href="#__codelineno-56-3">3</a></span>
+<span class="normal"><a href="#__codelineno-56-4">4</a></span>
+<span class="normal"><a href="#__codelineno-56-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-56-2" name="__codelineno-56-2"></a>Content-Type: text/plain; charset=utf-8
+<a id="__codelineno-56-3" name="__codelineno-56-3"></a>Content-Length: 27
+<a id="__codelineno-56-4" name="__codelineno-56-4"></a>
+<a id="__codelineno-56-5" name="__codelineno-56-5"></a>Response sent by [res.send]
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-57-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1"></a>curl -i http://localhost:3000/express/redirect
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-58-1">1</a></span>
+<span class="normal"><a href="#__codelineno-58-2">2</a></span>
+<span class="normal"><a href="#__codelineno-58-3">3</a></span>
+<span class="normal"><a href="#__codelineno-58-4">4</a></span>
+<span class="normal"><a href="#__codelineno-58-5">5</a></span>
+<span class="normal"><a href="#__codelineno-58-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1"></a>HTTP/1.1 302 Found
+<a id="__codelineno-58-2" name="__codelineno-58-2"></a>Location: /express/response
+<a id="__codelineno-58-3" name="__codelineno-58-3"></a>Content-Type: text/plain; charset=utf-8
+<a id="__codelineno-58-4" name="__codelineno-58-4"></a>Content-Length: 39
+<a id="__codelineno-58-5" name="__codelineno-58-5"></a>
+<a id="__codelineno-58-6" name="__codelineno-58-6"></a>Found. Redirecting to /express/response
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-59-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1"></a>curl -i http://localhost:3000/express/passthrough
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-60-1">1</a></span>
+<span class="normal"><a href="#__codelineno-60-2">2</a></span>
+<span class="normal"><a href="#__codelineno-60-3">3</a></span>
+<span class="normal"><a href="#__codelineno-60-4">4</a></span>
+<span class="normal"><a href="#__codelineno-60-5">5</a></span>
+<span class="normal"><a href="#__codelineno-60-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-60-2" name="__codelineno-60-2"></a>X-Example: 05-express
+<a id="__codelineno-60-3" name="__codelineno-60-3"></a>Content-Type: text/html; charset=utf-8
+<a id="__codelineno-60-4" name="__codelineno-60-4"></a>Content-Length: 45
+<a id="__codelineno-60-5" name="__codelineno-60-5"></a>
+<a id="__codelineno-60-6" name="__codelineno-60-6"></a>Response sent by NestJS, with an added header
+</code></pre></div></td></tr></table></div>
+<p>Voor de laatste actie beperken we met de optie <strong><em>[-m 3]</em></strong> de wachttijd tot 3 seconden:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-61-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1"></a>curl -i -m 3 http://localhost:3000/express/blocked
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-62-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1"></a>curl: (28) Operation timed out after 3002 milliseconds with 0 bytes received
+</code></pre></div></td></tr></table></div>
+<p>In de rest van dit document gebruiken we <strong><em>[@Res()]</em></strong> wanneer een actie moet kiezen tussen meerdere antwoorden van verschillend type (een pagina of een omleiding), en zorgen we ervoor dat <strong>elk</strong> pad in de code een antwoord verstuurt.</p>
+<h2 id="26-voorbeeld-06-modules-services-en-dependency-injection">2.6. <span style="color: #2e74b5">Voorbeeld 06: modules, services en dependency injection</span></h2>
+<p>Controllers horen geen applicatielogica te bevatten; ze <strong>delegeren</strong> die aan <strong>services</strong>. Voorbeeld 06 verdeelt een kleine applicatie over twee modules:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-63-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-63-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-63-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-63-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-63-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-63-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-63-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-63-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-63-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-63-10">10</a></span>
+<span class="normal"><a href="#__codelineno-63-11">11</a></span>
+<span class="normal"><a href="#__codelineno-63-12">12</a></span>
+<span class="normal"><a href="#__codelineno-63-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1"></a>06-modules/
+<a id="__codelineno-63-2" name="__codelineno-63-2"></a>├── src/
+<a id="__codelineno-63-3" name="__codelineno-63-3"></a>│   ├── clients/
+<a id="__codelineno-63-4" name="__codelineno-63-4"></a>│   │   ├── clients.controller.ts
+<a id="__codelineno-63-5" name="__codelineno-63-5"></a>│   │   └── clients.module.ts
+<a id="__codelineno-63-6" name="__codelineno-63-6"></a>│   ├── products/
+<a id="__codelineno-63-7" name="__codelineno-63-7"></a>│   │   ├── products.controller.ts
+<a id="__codelineno-63-8" name="__codelineno-63-8"></a>│   │   ├── products.module.ts
+<a id="__codelineno-63-9" name="__codelineno-63-9"></a>│   │   └── products.service.ts
+<a id="__codelineno-63-10" name="__codelineno-63-10"></a>│   ├── app.module.ts
+<a id="__codelineno-63-11" name="__codelineno-63-11"></a>│   └── main.ts
+<a id="__codelineno-63-12" name="__codelineno-63-12"></a>├── nest-cli.json
+<a id="__codelineno-63-13" name="__codelineno-63-13"></a>└── tsconfig.json
+</code></pre></div></td></tr></table></div>
+<h3 id="261-de-service-productsservice">2.6.1. <span style="color: #1f4d78">De service ProductsService</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-64-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-64-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-64-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-64-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-64-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-64-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-64-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-64-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-64-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-64-10">10</a></span>
+<span class="normal"><a href="#__codelineno-64-11">11</a></span>
+<span class="normal"><a href="#__codelineno-64-12">12</a></span>
+<span class="normal"><a href="#__codelineno-64-13">13</a></span>
+<span class="normal"><a href="#__codelineno-64-14">14</a></span>
+<span class="normal"><a href="#__codelineno-64-15">15</a></span>
+<span class="normal"><a href="#__codelineno-64-16">16</a></span>
+<span class="normal"><a href="#__codelineno-64-17">17</a></span>
+<span class="normal"><a href="#__codelineno-64-18">18</a></span>
+<span class="normal"><a href="#__codelineno-64-19">19</a></span>
+<span class="normal"><a href="#__codelineno-64-20">20</a></span>
+<span class="normal"><a href="#__codelineno-64-21">21</a></span>
+<span class="normal"><a href="#__codelineno-64-22">22</a></span>
+<span class="normal"><a href="#__codelineno-64-23">23</a></span>
+<span class="normal"><a href="#__codelineno-64-24">24</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Injectable</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-64-2" name="__codelineno-64-2"></a>
+<a id="__codelineno-64-3" name="__codelineno-64-3"></a><span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">Product</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-64-4" name="__codelineno-64-4"></a><span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<a id="__codelineno-64-5" name="__codelineno-64-5"></a><span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<a id="__codelineno-64-6" name="__codelineno-64-6"></a><span class="w">  </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<a id="__codelineno-64-7" name="__codelineno-64-7"></a><span class="p">}</span>
+<a id="__codelineno-64-8" name="__codelineno-64-8"></a>
+<a id="__codelineno-64-9" name="__codelineno-64-9"></a><span class="kd">@Injectable</span><span class="p">()</span>
+<a id="__codelineno-64-10" name="__codelineno-64-10"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ProductsService</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-64-11" name="__codelineno-64-11"></a><span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">products</span><span class="o">:</span><span class="w"> </span><span class="kt">Product</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-64-12" name="__codelineno-64-12"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">1</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'pen'</span><span class="p">,</span><span class="w"> </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="kt">1.5</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-64-13" name="__codelineno-64-13"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">2</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'notebook'</span><span class="p">,</span><span class="w"> </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="kt">3.2</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-64-14" name="__codelineno-64-14"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">3</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'eraser'</span><span class="p">,</span><span class="w"> </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="kt">0.8</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-64-15" name="__codelineno-64-15"></a><span class="w">  </span><span class="p">];</span>
+<a id="__codelineno-64-16" name="__codelineno-64-16"></a>
+<a id="__codelineno-64-17" name="__codelineno-64-17"></a><span class="w">  </span><span class="nx">findAll</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">Product</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-64-18" name="__codelineno-64-18"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">products</span><span class="p">;</span>
+<a id="__codelineno-64-19" name="__codelineno-64-19"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-64-20" name="__codelineno-64-20"></a>
+<a id="__codelineno-64-21" name="__codelineno-64-21"></a><span class="w">  </span><span class="nx">findById</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">Product</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">undefined</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-64-22" name="__codelineno-64-22"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">products</span><span class="p">.</span><span class="nx">find</span><span class="p">((</span><span class="nx">p</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">id</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">id</span><span class="p">);</span>
+<a id="__codelineno-64-23" name="__codelineno-64-23"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-64-24" name="__codelineno-64-24"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Regel 3–7: de interface <strong><em>[Product]</em></strong> beschrijft een product;</li>
+<li>regel 9: de decorator <strong><em>[@Injectable()]</em></strong> maakt van de klasse een <strong>service</strong> (ook wel <strong>provider</strong> genoemd): <em>[NestJS]</em> maakt <strong>één instantie</strong>  ervan aan en levert die (<strong>injecteert</strong>) aan iedereen die haar nodig heeft;</li>
+<li>regel 11–15: de gegevens, hier in het geheugen;</li>
+<li>regel 17–23: de twee methoden van de service.</li>
+</ul>
+<h3 id="262-de-controller-productscontroller">2.6.2. <span style="color: #1f4d78">De controller ProductsController</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-65-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-65-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-65-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-65-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-65-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-65-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-65-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-65-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-65-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-65-10">10</a></span>
+<span class="normal"><a href="#__codelineno-65-11">11</a></span>
+<span class="normal"><a href="#__codelineno-65-12">12</a></span>
+<span class="normal"><a href="#__codelineno-65-13">13</a></span>
+<span class="normal"><a href="#__codelineno-65-14">14</a></span>
+<span class="normal"><a href="#__codelineno-65-15">15</a></span>
+<span class="normal"><a href="#__codelineno-65-16">16</a></span>
+<span class="normal"><a href="#__codelineno-65-17">17</a></span>
+<span class="normal"><a href="#__codelineno-65-18">18</a></span>
+<span class="normal"><a href="#__codelineno-65-19">19</a></span>
+<span class="normal"><a href="#__codelineno-65-20">20</a></span>
+<span class="normal"><a href="#__codelineno-65-21">21</a></span>
+<span class="normal"><a href="#__codelineno-65-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Controller</span><span class="p">,</span><span class="w"> </span><span class="nx">Get</span><span class="p">,</span><span class="w"> </span><span class="nx">NotFoundException</span><span class="p">,</span><span class="w"> </span><span class="nx">Param</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-65-2" name="__codelineno-65-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Product</span><span class="p">,</span><span class="w"> </span><span class="nx">ProductsService</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./products.service'</span><span class="p">;</span>
+<a id="__codelineno-65-3" name="__codelineno-65-3"></a>
+<a id="__codelineno-65-4" name="__codelineno-65-4"></a><span class="kd">@Controller</span><span class="p">(</span><span class="s1">'products'</span><span class="p">)</span>
+<a id="__codelineno-65-5" name="__codelineno-65-5"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ProductsController</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-65-6" name="__codelineno-65-6"></a><span class="w">  </span><span class="c1">// dependency injection: NestJS levert de instantie van ProductsService</span>
+<a id="__codelineno-65-7" name="__codelineno-65-7"></a><span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">productsService</span><span class="o">:</span><span class="w"> </span><span class="kt">ProductsService</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-65-8" name="__codelineno-65-8"></a>
+<a id="__codelineno-65-9" name="__codelineno-65-9"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">()</span>
+<a id="__codelineno-65-10" name="__codelineno-65-10"></a><span class="w">  </span><span class="nx">list</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">Product</span><span class="p">[]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-65-11" name="__codelineno-65-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">productsService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">();</span>
+<a id="__codelineno-65-12" name="__codelineno-65-12"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-65-13" name="__codelineno-65-13"></a>
+<a id="__codelineno-65-14" name="__codelineno-65-14"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">':id'</span><span class="p">)</span>
+<a id="__codelineno-65-15" name="__codelineno-65-15"></a><span class="w">  </span><span class="nx">oneProduct</span><span class="p">(</span><span class="kd">@Param</span><span class="p">(</span><span class="s1">'id'</span><span class="p">)</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">Product</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-65-16" name="__codelineno-65-16"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">productsService</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">id</span><span class="p">));</span>
+<a id="__codelineno-65-17" name="__codelineno-65-17"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">product</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-65-18" name="__codelineno-65-18"></a><span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">NotFoundException</span><span class="p">(</span><span class="sb">`Product no. </span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb"> not found`</span><span class="p">);</span>
+<a id="__codelineno-65-19" name="__codelineno-65-19"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-65-20" name="__codelineno-65-20"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">product</span><span class="p">;</span>
+<a id="__codelineno-65-21" name="__codelineno-65-21"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-65-22" name="__codelineno-65-22"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>regel 7: <strong>dependency injection</strong>. De controller geeft in zijn constructor aan dat hij een <strong><em>[ProductsService]</em></strong> nodig heeft; <em>[NestJS]</em> levert hem de enige instantie van de service. De controller roept nooit <strong><em>[new ProductsService()]</em></strong> aan. De syntaxis <strong><em>[private readonly productsService: ProductsService]</em></strong> van <em>[TypeScript]</em> declareert zowel de parameter als het veld <strong><em>[this.productsService]</em></strong>;</li>
+<li>Regel 9–12: de actie delegeert naar de service;</li>
+<li>regel 14–21: <strong><em>[Number(id)]</em></strong> zet de routeparameter (een tekenreeks) om in een getal. Een niet-bestaand product veroorzaakt een 404-exception.</li>
+</ul>
+<h3 id="263-de-module-productsmodule">2.6.3. <span style="color: #1f4d78">De module ProductsModule</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-66-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-66-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-66-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-66-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-66-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-66-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-66-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-66-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-66-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-66-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Module</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-66-2" name="__codelineno-66-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ProductsController</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./products.controller'</span><span class="p">;</span>
+<a id="__codelineno-66-3" name="__codelineno-66-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ProductsService</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./products.service'</span><span class="p">;</span>
+<a id="__codelineno-66-4" name="__codelineno-66-4"></a>
+<a id="__codelineno-66-5" name="__codelineno-66-5"></a><span class="kd">@Module</span><span class="p">({</span>
+<a id="__codelineno-66-6" name="__codelineno-66-6"></a><span class="w">  </span><span class="nx">controllers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">ProductsController</span><span class="p">],</span>
+<a id="__codelineno-66-7" name="__codelineno-66-7"></a><span class="w">  </span><span class="nx">providers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">ProductsService</span><span class="p">],</span>
+<a id="__codelineno-66-8" name="__codelineno-66-8"></a><span class="w">  </span><span class="nx">exports</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">ProductsService</span><span class="p">],</span>
+<a id="__codelineno-66-9" name="__codelineno-66-9"></a><span class="p">})</span>
+<a id="__codelineno-66-10" name="__codelineno-66-10"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ProductsModule</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>regel 6: de controller van de module;</li>
+<li>regel 7: de services van de module. Alleen de services die hier zijn gedeclareerd (of geïmporteerd, zie hieronder) kunnen in de klassen van de module worden geïnjecteerd;</li>
+<li>regel 8: de service wordt <strong>geëxporteerd</strong>: modules die <strong><em>[ProductsModule]</em></strong> importeren, kunnen haar ook laten injecteren.</li>
+</ul>
+<h3 id="264-de-module-clientsmodule">2.6.4. <span style="color: #1f4d78">De module ClientsModule</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-67-1">1</a></span>
+<span class="normal"><a href="#__codelineno-67-2">2</a></span>
+<span class="normal"><a href="#__codelineno-67-3">3</a></span>
+<span class="normal"><a href="#__codelineno-67-4">4</a></span>
+<span class="normal"><a href="#__codelineno-67-5">5</a></span>
+<span class="normal"><a href="#__codelineno-67-6">6</a></span>
+<span class="normal"><a href="#__codelineno-67-7">7</a></span>
+<span class="normal"><a href="#__codelineno-67-8">8</a></span>
+<span class="normal"><a href="#__codelineno-67-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Module</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-67-2" name="__codelineno-67-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ClientsController</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./clients.controller'</span><span class="p">;</span>
+<a id="__codelineno-67-3" name="__codelineno-67-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ProductsModule</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'../products/products.module'</span><span class="p">;</span>
+<a id="__codelineno-67-4" name="__codelineno-67-4"></a>
+<a id="__codelineno-67-5" name="__codelineno-67-5"></a><span class="kd">@Module</span><span class="p">({</span>
+<a id="__codelineno-67-6" name="__codelineno-67-6"></a><span class="w">  </span><span class="nx">imports</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">ProductsModule</span><span class="p">],</span>
+<a id="__codelineno-67-7" name="__codelineno-67-7"></a><span class="w">  </span><span class="nx">controllers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">ClientsController</span><span class="p">],</span>
+<a id="__codelineno-67-8" name="__codelineno-67-8"></a><span class="p">})</span>
+<a id="__codelineno-67-9" name="__codelineno-67-9"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ClientsModule</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div></td></tr></table></div>
+<p>Regel 6: <strong><em>[ClientsModule]</em></strong> <strong>importeert</strong> <strong><em>[ProductsModule]</em></strong> en heeft dus toegang tot de services die deze exporteert.</p>
+<p>Het bestand <strong><em>[src/clients/clients.controller.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-68-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-68-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-68-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-68-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-68-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-68-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-68-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-68-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-68-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-68-10">10</a></span>
+<span class="normal"><a href="#__codelineno-68-11">11</a></span>
+<span class="normal"><a href="#__codelineno-68-12">12</a></span>
+<span class="normal"><a href="#__codelineno-68-13">13</a></span>
+<span class="normal"><a href="#__codelineno-68-14">14</a></span>
+<span class="normal"><a href="#__codelineno-68-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Controller</span><span class="p">,</span><span class="w"> </span><span class="nx">Get</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-68-2" name="__codelineno-68-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ProductsService</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'../products/products.service'</span><span class="p">;</span>
+<a id="__codelineno-68-3" name="__codelineno-68-3"></a>
+<a id="__codelineno-68-4" name="__codelineno-68-4"></a><span class="kd">@Controller</span><span class="p">(</span><span class="s1">'clients'</span><span class="p">)</span>
+<a id="__codelineno-68-5" name="__codelineno-68-5"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ClientsController</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-68-6" name="__codelineno-68-6"></a><span class="w">  </span><span class="c1">// een service uit een ANDERE module, geëxporteerd door die module</span>
+<a id="__codelineno-68-7" name="__codelineno-68-7"></a><span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">productsService</span><span class="o">:</span><span class="w"> </span><span class="kt">ProductsService</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-68-8" name="__codelineno-68-8"></a>
+<a id="__codelineno-68-9" name="__codelineno-68-9"></a><span class="w">  </span><span class="kd">@Get</span><span class="p">(</span><span class="s1">'cart'</span><span class="p">)</span>
+<a id="__codelineno-68-10" name="__codelineno-68-10"></a><span class="w">  </span><span class="nx">cart</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">object</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-68-11" name="__codelineno-68-11"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">products</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">productsService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">();</span>
+<a id="__codelineno-68-12" name="__codelineno-68-12"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">products</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">sum</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">sum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">price</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span>
+<a id="__codelineno-68-13" name="__codelineno-68-13"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">client</span><span class="o">:</span><span class="w"> </span><span class="s1">'Jean Martin'</span><span class="p">,</span><span class="w"> </span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="kt">products.length</span><span class="p">,</span><span class="w"> </span><span class="nx">total</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-68-14" name="__codelineno-68-14"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-68-15" name="__codelineno-68-15"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Regel 7: in <strong><em>[ClientsController]</em></strong> wordt een service uit een <strong>andere</strong> module geïnjecteerd;</li>
+<li>regel 9–14: hij gebruikt deze service om het totaal van een winkelwagen te berekenen.</li>
+</ul>
+<h3 id="265-de-rootmodule">2.6.5. <span style="color: #1f4d78">De rootmodule</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-69-1">1</a></span>
+<span class="normal"><a href="#__codelineno-69-2">2</a></span>
+<span class="normal"><a href="#__codelineno-69-3">3</a></span>
+<span class="normal"><a href="#__codelineno-69-4">4</a></span>
+<span class="normal"><a href="#__codelineno-69-5">5</a></span>
+<span class="normal"><a href="#__codelineno-69-6">6</a></span>
+<span class="normal"><a href="#__codelineno-69-7">7</a></span>
+<span class="normal"><a href="#__codelineno-69-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Module</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@nestjs/common'</span><span class="p">;</span>
+<a id="__codelineno-69-2" name="__codelineno-69-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ProductsModule</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./products/products.module'</span><span class="p">;</span>
+<a id="__codelineno-69-3" name="__codelineno-69-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ClientsModule</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./clients/clients.module'</span><span class="p">;</span>
+<a id="__codelineno-69-4" name="__codelineno-69-4"></a>
+<a id="__codelineno-69-5" name="__codelineno-69-5"></a><span class="kd">@Module</span><span class="p">({</span>
+<a id="__codelineno-69-6" name="__codelineno-69-6"></a><span class="w">  </span><span class="nx">imports</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">ProductsModule</span><span class="p">,</span><span class="w"> </span><span class="nx">ClientsModule</span><span class="p">],</span>
+<a id="__codelineno-69-7" name="__codelineno-69-7"></a><span class="p">})</span>
+<a id="__codelineno-69-8" name="__codelineno-69-8"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AppModule</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div></td></tr></table></div>
+<p>regel 6: de rootmodule heeft geen controller meer; ze importeert alleen de twee modules van de applicatie.</p>
+<h3 id="266-uitvoering">2.6.6. <span style="color: #1f4d78">Uitvoering</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-70-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-70-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-70-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-70-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-70-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-70-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-70-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-70-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-70-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-70-10">10</a></span>
+<span class="normal"><a href="#__codelineno-70-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-70-1" name="__codelineno-70-1"></a>[Nest] 12976  - 09/23/2026, 4:02:35 PM     LOG [NestFactory] Starting Nest application...
+<a id="__codelineno-70-2" name="__codelineno-70-2"></a>[Nest] 12976  - 09/23/2026, 4:02:35 PM     LOG [InstanceLoader] AppModule dependencies initialized +9ms
+<a id="__codelineno-70-3" name="__codelineno-70-3"></a>[Nest] 12976  - 09/23/2026, 4:02:35 PM     LOG [InstanceLoader] ProductsModule dependencies initialized +1ms
+<a id="__codelineno-70-4" name="__codelineno-70-4"></a>[Nest] 12976  - 09/23/2026, 4:02:35 PM     LOG [InstanceLoader] ClientsModule dependencies initialized +0ms
+<a id="__codelineno-70-5" name="__codelineno-70-5"></a>[Nest] 12976  - 09/23/2026, 4:02:35 PM     LOG [RoutesResolver] ProductsController {/products}: +3ms
+<a id="__codelineno-70-6" name="__codelineno-70-6"></a>[Nest] 12976  - 09/23/2026, 4:02:35 PM     LOG [RouterExplorer] Mapped {/products, GET} route +2ms
+<a id="__codelineno-70-7" name="__codelineno-70-7"></a>[Nest] 12976  - 09/23/2026, 4:02:35 PM     LOG [RouterExplorer] Mapped {/products/:id, GET} route +1ms
+<a id="__codelineno-70-8" name="__codelineno-70-8"></a>[Nest] 12976  - 09/23/2026, 4:02:35 PM     LOG [RoutesResolver] ClientsController {/clients}: +0ms
+<a id="__codelineno-70-9" name="__codelineno-70-9"></a>[Nest] 12976  - 09/23/2026, 4:02:35 PM     LOG [RouterExplorer] Mapped {/clients/cart, GET} route +0ms
+<a id="__codelineno-70-10" name="__codelineno-70-10"></a>[Nest] 12976  - 09/23/2026, 4:02:35 PM     LOG [NestApplication] Nest application successfully started +2ms
+<a id="__codelineno-70-11" name="__codelineno-70-11"></a>Server started on http://localhost:3000
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-71-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-71-1" name="__codelineno-71-1"></a>curl -i http://localhost:3000/products
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-72-1">1</a></span>
+<span class="normal"><a href="#__codelineno-72-2">2</a></span>
+<span class="normal"><a href="#__codelineno-72-3">3</a></span>
+<span class="normal"><a href="#__codelineno-72-4">4</a></span>
+<span class="normal"><a href="#__codelineno-72-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-72-1" name="__codelineno-72-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-72-2" name="__codelineno-72-2"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-72-3" name="__codelineno-72-3"></a>Content-Length: 111
+<a id="__codelineno-72-4" name="__codelineno-72-4"></a>
+<a id="__codelineno-72-5" name="__codelineno-72-5"></a>[{"id":1,"name":"pen","price":1.5},{"id":2,"name":"notebook","price":3.2},{"id":3,"name":"eraser","price":0.8}]
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-73-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-73-1" name="__codelineno-73-1"></a>curl -i http://localhost:3000/products/2
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-74-1">1</a></span>
+<span class="normal"><a href="#__codelineno-74-2">2</a></span>
+<span class="normal"><a href="#__codelineno-74-3">3</a></span>
+<span class="normal"><a href="#__codelineno-74-4">4</a></span>
+<span class="normal"><a href="#__codelineno-74-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-74-1" name="__codelineno-74-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-74-2" name="__codelineno-74-2"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-74-3" name="__codelineno-74-3"></a>Content-Length: 38
+<a id="__codelineno-74-4" name="__codelineno-74-4"></a>
+<a id="__codelineno-74-5" name="__codelineno-74-5"></a>{"id":2,"name":"notebook","price":3.2}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-75-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-75-1" name="__codelineno-75-1"></a>curl -i http://localhost:3000/products/9
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-76-1">1</a></span>
+<span class="normal"><a href="#__codelineno-76-2">2</a></span>
+<span class="normal"><a href="#__codelineno-76-3">3</a></span>
+<span class="normal"><a href="#__codelineno-76-4">4</a></span>
+<span class="normal"><a href="#__codelineno-76-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-76-1" name="__codelineno-76-1"></a>HTTP/1.1 404 Not Found
+<a id="__codelineno-76-2" name="__codelineno-76-2"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-76-3" name="__codelineno-76-3"></a>Content-Length: 74
+<a id="__codelineno-76-4" name="__codelineno-76-4"></a>
+<a id="__codelineno-76-5" name="__codelineno-76-5"></a>{"message":"Product no. 9 not found","error":"Not Found","statusCode":404}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-77-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-77-1" name="__codelineno-77-1"></a>curl -i http://localhost:3000/clients/cart
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-78-1">1</a></span>
+<span class="normal"><a href="#__codelineno-78-2">2</a></span>
+<span class="normal"><a href="#__codelineno-78-3">3</a></span>
+<span class="normal"><a href="#__codelineno-78-4">4</a></span>
+<span class="normal"><a href="#__codelineno-78-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-78-1" name="__codelineno-78-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-78-2" name="__codelineno-78-2"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-78-3" name="__codelineno-78-3"></a>Content-Length: 46
+<a id="__codelineno-78-4" name="__codelineno-78-4"></a>
+<a id="__codelineno-78-5" name="__codelineno-78-5"></a>{"client":"Jean Martin","items":3,"total":5.5}
+</code></pre></div></td></tr></table></div>
+<p>De casus is precies zo opgebouwd: lichtgewicht controllers die delegeren aan geïnjecteerde services, en modules die samenhangende componenten groeperen.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://stahe.github.io" target="_blank">
+          https://stahe.github.io
+        </a>
+        <br>
+        Deze tutorial, geschreven door de AI <strong>Claude</strong> van Anthropic en nagelezen door <strong>Serge Tahé</strong>, wordt aan het publiek ter beschikking gesteld onder de voorwaarden van de licentie
+        <em>Creative Commons Naamsvermelding – Niet-commercieel –
+        Gelijk delen 3.0 Unported</em>.
+
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>
